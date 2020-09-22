@@ -8,4 +8,11 @@
     <string name="tab_seeds">Seeds</string>
     <string name="tab_skins">Skins</string>
 
+    <string name="dialog_title_completed">Download Completed!</string>
+    <string name="dialog_text_completed">Are you happy when using our app? Can you spare time a few seconds to rate it?</string>
+    <string name="dialog_later">LATER</string>
+    <string name="dialog_nope">NOPE</string>
+    <string name="dialog_not_found_title">Minecraft not found!</string>
+    <string name="dialog_not_found_text">You need minecraft to install files. Please install and download from Google Play Store.</string>
+    <string name="dialog_cancel">CANCEL</string>
 </resources>

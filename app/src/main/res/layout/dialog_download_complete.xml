@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        android:text="@string/dialog_title_completed"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/dialog_text"
+        android:text="@string/dialog_text_completed"
+        android:layout_below="@id/title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/dialog_bg"
+        android:layout_below="@id/description">
+
+        <TextView
+            android:id="@+id/later"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_later"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/dialog_button_text"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/never"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_nope"
+            android:layout_toLeftOf="@+id/button_Ok"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/dialog_button_text"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/button_Ok"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:src="@drawable/sure_bt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -6,4 +6,8 @@
     <color name="title_color">#4ed505</color>
     <color name="white">#ffff</color>
     <color name="black">#000</color>
+
+    <color name="dialog_text">#676767</color>
+    <color name="dialog_button_text">#818181</color>
+    <color name="dialog_bg">#f7f7f7</color>
 </resources>
