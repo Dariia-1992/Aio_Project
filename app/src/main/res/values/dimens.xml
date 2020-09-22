@@ -3,4 +3,5 @@
     <dimen name="logo_icon">32dp</dimen>
     <dimen name="margin">12dp</dimen>
     <dimen name="tab_icon">24dp</dimen>
+    <dimen name="tab_padding">6dp</dimen>
 </resources>

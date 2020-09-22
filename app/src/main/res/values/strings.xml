@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">AIO MODS MASTER</string>
     <string name="second_title">EXPLORE</string>
+
     <string name="tab_mods">Mods</string>
     <string name="tab_textures">Textures</string>
     <string name="tab_maps">Maps</string>
     <string name="tab_seeds">Seeds</string>
     <string name="tab_skins">Skins</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
