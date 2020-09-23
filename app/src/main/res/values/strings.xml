@@ -7,6 +7,9 @@
     <string name="tab_maps">Maps</string>
     <string name="tab_seeds">Seeds</string>
     <string name="tab_skins">Skins</string>
+    <string name="latest">Latest</string>
+    <string name="popular_mods">Popular Mods / Addons</string>
+    <string name="popular_maps">Popular Maps</string>
 
     <string name="dialog_title_completed">Download Completed!</string>
     <string name="dialog_text_completed">Are you happy when using our app? Can you spare time a few seconds to rate it?</string>
