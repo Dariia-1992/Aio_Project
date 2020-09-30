@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="logo_icon">32dp</dimen>
-    <dimen name="margin">12dp</dimen>
+    <dimen name="margin_toolbar">12dp</dimen>
+    <dimen name="main_margin">12dp</dimen>
     <dimen name="tab_icon">24dp</dimen>
+    <dimen name="tab_icon_width">64dp</dimen>
+    <dimen name="tab_icon_height">38dp</dimen>
+    <dimen name="title_space">50dp</dimen>
+
     <dimen name="tab_padding">6dp</dimen>
+    <dimen name="margin_for_more_button">12dp</dimen>
+
+    <dimen name="item_width">90dp</dimen>
+    <dimen name="item_height">150dp</dimen>
+    <dimen name="item_image_width">200dp</dimen>
+    <dimen name="item__image_height">120dp</dimen>
 </resources>

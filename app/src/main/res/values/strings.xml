@@ -18,4 +18,7 @@
     <string name="dialog_not_found_title">Minecraft not found!</string>
     <string name="dialog_not_found_text">You need minecraft to install files. Please install and download from Google Play Store.</string>
     <string name="dialog_cancel">CANCEL</string>
+
+    <string name="aio_title">Lorem ipsum dolor sit amet</string>
+    <string name="aio_description">The latest issue no. 293 released on 15 September 2020 is available here. For a specific research, insert the keywords (e.g. International Criminal Court; landmines treaty; school competitions) in the search box here below.</string>
 </resources>

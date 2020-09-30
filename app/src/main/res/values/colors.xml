@@ -10,4 +10,5 @@
     <color name="dialog_text">#676767</color>
     <color name="dialog_button_text">#818181</color>
     <color name="dialog_bg">#f7f7f7</color>
+    <color name="main_background">#f1f1f1</color>
 </resources>
