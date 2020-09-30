@@ -3,11 +3,11 @@
     <dimen name="logo_icon">32dp</dimen>
     <dimen name="margin_toolbar">12dp</dimen>
     <dimen name="main_margin">12dp</dimen>
-    <dimen name="tab_icon">24dp</dimen>
+    <dimen name="tab_icon">18dp</dimen>
     <dimen name="tab_icon_width">64dp</dimen>
     <dimen name="tab_icon_height">38dp</dimen>
     <dimen name="title_space">50dp</dimen>
-
+    <dimen name="tab_layout_height">48dp</dimen>
     <dimen name="tab_padding">6dp</dimen>
     <dimen name="margin_for_more_button">12dp</dimen>
 
