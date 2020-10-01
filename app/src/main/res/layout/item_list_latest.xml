@@ -5,16 +5,25 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_item"
     android:layout_marginRight="6dp">
-        <ImageView
-            android:id="@+id/aio_image"
-            android:layout_width="@dimen/item_image_width"
-            android:layout_height="@dimen/item__image_height"
-            android:scaleType="centerInside"/>
-        <TextView
-            android:id="@+id/aio_title"
+        <RelativeLayout
+            android:id="@+id/item_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/aio_image" />
+            android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/aio_image"
+                    android:layout_width="@dimen/item_image_width"
+                    android:layout_height="@dimen/item__image_height"
+                    android:scaleType="centerInside"/>
+                <TextView
+                    android:id="@+id/aio_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="8dp"
+                    android:layout_below="@id/aio_image" />
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
