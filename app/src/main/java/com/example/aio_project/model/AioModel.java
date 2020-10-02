@@ -1,6 +1,9 @@
 package com.example.aio_project.model;
 
+import java.util.UUID;
+
 public class AioModel {
+    private final String id = UUID.randomUUID().toString();
     private String category;
     private String title;
     private String downloads;
@@ -22,50 +25,40 @@ public class AioModel {
 //        this.image = thumbnail;
 //    }
 
+    public String getId() { return id; }
     public String getCategory() {
         return category;
     }
-
     public String getTitle() {
         return title;
     }
-
     public String getDownloads() {
         return downloads;
     }
-
     public String getViews() {
         return views;
     }
-
     public String getDescription() {
         return description;
     }
-
     public int getImage() {
         return image;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public void setDownloads(String downloads) {
         this.downloads = downloads;
     }
-
     public void setViews(String views) {
         this.views = views;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public void setImage(int image) {
         this.image = image;
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,5 +88,7 @@ public class MainFragment extends Fragment {
       if (view1 == null)
           return;
       Bundle bundle = new Bundle();
+      bundle.putString(AioDetailsFragment.ARG_ITEM_ID, id);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_aioDetailsFragment, bundle);
     };
 }

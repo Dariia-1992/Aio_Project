@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.aio_project.R;
 
 public class AioDetailsFragment extends Fragment {
+    public static final String ARG_ITEM_ID = "itemId";
     private View view;
 
     @Nullable
