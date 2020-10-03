@@ -61,7 +61,7 @@
                 android:id="@+id/skinImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_image_width"
-                android:src="@drawable/pic_null"
+                android:src="@drawable/null_image"
                 android:scaleType="centerCrop"/>
 
             <View

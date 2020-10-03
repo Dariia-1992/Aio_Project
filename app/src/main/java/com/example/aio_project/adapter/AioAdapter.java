@@ -38,7 +38,7 @@ public class AioAdapter extends RecyclerView.Adapter<AioAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final  AioModel aioLatest = latestList.get(position);
-        holder.aioImage.setImageResource(R.drawable.pic_null);
+        holder.aioImage.setImageResource(R.drawable.null_image);
         holder.aioTitle.setText(aioLatest.getTitle());
         holder.itemView.setOnClickListener(v -> {
             if (listener != null){

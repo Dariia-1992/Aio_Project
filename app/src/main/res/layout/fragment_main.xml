@@ -184,7 +184,7 @@
         android:layout_below="@id/tab_layout"
         android:background="@color/title_color"/>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -193,12 +193,13 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">-->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/main_background"
+            android:layout_below="@id/tab_layout"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -313,6 +314,6 @@
                     tools:listitem="@layout/item_list_latest" />
             </RelativeLayout>
         </LinearLayout>
-        </ScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </RelativeLayout>

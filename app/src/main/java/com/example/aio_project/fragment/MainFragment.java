@@ -93,31 +93,31 @@ public class MainFragment extends Fragment {
 
     public void createAioLatestList(){
         latestList = new ArrayList<>();
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        latestList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
     }
 
     public void createAioPopularList() {
         popularModsList = new ArrayList<>();
-        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
+        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularModsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
     }
 
     public void createAioPopularMapsList() {
         popularMapsList = new ArrayList<>();
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
-        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.pic_null));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
+        popularMapsList.add(new AioModel("Lorem ipsum dolor", R.drawable.null_image));
     }
 
     private final AioAdapter.OnClickItem listener = id -> {
