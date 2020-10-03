@@ -61,6 +61,7 @@
                 android:id="@+id/skinImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_image_width"
+                android:src="@drawable/pic_null"
                 android:scaleType="centerCrop"/>
 
             <View
@@ -128,6 +129,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/functional_block">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
                     <TextView
                         android:id="@+id/descriptionView"
