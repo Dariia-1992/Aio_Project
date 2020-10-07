@@ -21,17 +21,21 @@ import com.example.aio_project.R;
 import com.example.aio_project.adapter.AioAdapter;
 import com.example.aio_project.model.AioModel;
 import com.example.aio_project.model.AioRepository;
+import com.example.aio_project.model.Filter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.aio_project.model.Filter.MODS;
+
+
 public class MainFragment extends Fragment {
 
-    public int MODE_MODS = 0;
+/*    public int MODE_MODS = 0;
     public int MODE_TEXTURE = 1;
     public int MODE_MAPS = 2;
     public int MODE_SEEDS = 3;
-    public int MODE_SKINS = 4;
+    public int MODE_SKINS = 4;*/
 
     private View view;
 
@@ -137,8 +141,9 @@ public class MainFragment extends Fragment {
         bundle.putParcelableArrayList(ExploreFragment.MODE, currentListMods);
         fragment.setArguments(bundle);*/
 
-
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ExploreFragment.FILTER, MODS);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 
     private void textureFilters(boolean isChecked) {

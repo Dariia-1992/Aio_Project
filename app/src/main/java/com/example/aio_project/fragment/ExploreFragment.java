@@ -18,14 +18,18 @@ import com.example.aio_project.PremiumActivity;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.AioModsAdapter;
 import com.example.aio_project.model.AioModel;
+import com.example.aio_project.model.AioRepository;
+import com.example.aio_project.model.Filter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExploreFragment extends Fragment {
-    public static final String MODE = "filter";
+    public static final String FILTER = "filter";
     private View view;
-    private ArrayList<AioModel> filterList = new ArrayList<>();
+    private List<AioModel> filterList = new ArrayList<>();
+    private Filter mode;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -33,16 +37,36 @@ public class ExploreFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_explore, container, false);
 
         if (getArguments() != null) {
-            //filterList = getArguments().getParcelableArrayList(MODE);
+            mode = (Filter) getArguments().getSerializable(FILTER);
         }
 
         ImageView vip = view.findViewById(R.id.vip);
         vip.setOnClickListener(view1 -> getVip());
-        AioModsAdapter adapter = new AioModsAdapter(filterList, listener);
-        RecyclerView recyclerView = view.findViewById(R.id.filter_list);
-        recyclerView.setAdapter(adapter);
+
+        recyclerView = view.findViewById(R.id.filter_list);
+        getCurrentList();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         return view;
+    }
+
+    private void getCurrentList() {
+        switch (mode){
+            case MODS:
+                filterList = AioRepository.getMods();
+                AioModsAdapter adapter = new AioModsAdapter(filterList, listener);
+                recyclerView.setAdapter(adapter);
+                break;
+            case TEXTURES:
+                break;
+            case MAPS:
+                break;
+            case SEEDS:
+                break;
+            case SKINS:
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + mode);
+        }
     }
 
     private void getVip() {

@@ -27,15 +27,18 @@ public class AioRepository {
         return list;
     }
 
-    public void getMods(List<AioModel> items) {
+    public static List<AioModel> getMods() {
+        List<AioModel> allList = createAllList();
         List<AioModel> modsList = new ArrayList<>();
-        for (AioModel item : items) {
+        for (AioModel item : allList) {
             if (item.getCategory().equals("mods"))
                 modsList.add(item);
         }
+        return modsList;
     }
 
     public void getTextures(List<AioModel> items) {
+        List<AioModel> allList = createAllList();
         List<AioModel> texturesList = new ArrayList<>();
         for (AioModel item : items) {
             if (item.getCategory().equals("textures"))
@@ -180,12 +183,13 @@ public class AioRepository {
         return popularMapsList;
     }
 
-/*    public void createAllList() {
-        allAio.clear();
-        allAio.addAll(latestList);
-        allAio.addAll(popularMapsList);
-        allAio.addAll(popularModsList);
-    }*/
+    public static List<AioModel> createAllList() {
+        //items.clear();
+        items.addAll(createAioLatestList());
+        items.addAll(createAioPopularList());
+        items.addAll(createAioPopularMapsList());
+        return items;
+    }
 
 /*
     public void getCurrentList() {
