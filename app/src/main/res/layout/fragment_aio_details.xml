@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/toolbar_background">
         <ImageView
-            android:id="@+id/app_icon"
+            android:id="@+id/back_icon"
             android:layout_width="@dimen/logo_icon"
             android:layout_height="@dimen/logo_icon"
             android:layout_centerVertical="true"
@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/app_icon"
+            android:layout_toEndOf="@id/back_icon"
             android:padding="4dp"
             android:orientation="vertical">
             <TextView
@@ -81,7 +81,7 @@
                     android:id="@+id/download_button"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/download_button_height"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     android:layout_margin="@dimen/main_margin"
                     android:src="@drawable/download_bt"/>
                 <ImageView
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:visibility="gone"
                     android:layout_margin="@dimen/main_margin"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     android:src="@drawable/installx"/>
 
                 <RelativeLayout
@@ -128,11 +128,21 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/functional_block">
+                    android:layout_below="@id/functional_block"
+                    android:layout_marginLeft="@dimen/main_margin"
+                    android:layout_marginRight="@dimen/main_margin">
 
-                    <TextView
+                    <RelativeLayout
+                        android:id="@+id/read_more_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="@dimen/download_button_height">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/read_more"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/descriptionView"
@@ -140,8 +150,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:textSize="13sp"
-                        android:layout_marginLeft="@dimen/main_margin"
-                        android:layout_marginRight="@dimen/main_margin"
+                        android:visibility="gone"
+                        android:text="@string/aio_description"
                         android:textColor="@color/black"/>
 
                 </RelativeLayout>

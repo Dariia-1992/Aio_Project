@@ -14,9 +14,20 @@
         <action
             android:id="@+id/action_mainFragment_to_aioDetailsFragment"
             app:destination="@id/aioDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
     </fragment>
     <fragment
         android:id="@+id/aioDetailsFragment"
         android:name="com.example.aio_project.fragment.AioDetailsFragment"
         android:label="AioDetailsFragment" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.example.aio_project.fragment.ExploreFragment"
+        android:label="ExploreFragment" >
+        <action
+            android:id="@+id/action_exploreFragment_to_aioDetailsFragment"
+            app:destination="@id/aioDetailsFragment" />
+    </fragment>
 </navigation>

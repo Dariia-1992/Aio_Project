@@ -17,7 +17,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_toolbar"
             android:layout_marginEnd="@dimen/margin_toolbar"
-            android:src="@drawable/icon_logo"/>
+            android:src="@drawable/back"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,17 +25,17 @@
             android:padding="4dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/title_color"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/second_title"
                 android:textStyle="bold"
+                android:text="@string/second_title"
                 android:textSize="12sp"
                 android:textColor="@color/white"/>
         </LinearLayout>
@@ -183,137 +183,46 @@
         android:layout_height="2dp"
         android:layout_below="@id/tab_layout"
         android:background="@color/title_color"/>
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_below="@id/view_color"
+        android:orientation="horizontal"
+        android:background="@color/black">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginLeft="@dimen/main_margin"
+            android:background="@drawable/background_search"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/sort_down"
+            android:padding="4dp"/>
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tab_layout"
+        android:layout_below="@id/search_layout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/main_background"
-            android:layout_below="@id/tab_layout"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/latest_block"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/filter_list"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/main_margin">
-                <RelativeLayout
-                    android:id="@+id/title_latest"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_space">
+                android:layout_height="@dimen/item_height"
+                tools:listitem="@layout/item_list" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="8dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="@string/latest"/>
-                    <ImageView
-                        android:id="@+id/latest_more_button"
-                        android:layout_width="@dimen/tab_icon_width"
-                        android:layout_height="@dimen/tab_icon_height"
-                        android:layout_marginRight="@dimen/margin_for_more_button"
-                        android:layout_marginBottom="8dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:src="@drawable/more_bt"/>
-                </RelativeLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/latest_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_height"
-                    android:layout_below="@id/title_latest"
-                    tools:listitem="@layout/item_list_latest" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/popular_block"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/main_margin">
-            <RelativeLayout
-                android:id="@+id/title_popular_mods"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_space">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_centerVertical="true"
-                        android:text="@string/popular_mods"/>
-                    <ImageView
-                        android:id="@+id/popular_more_button"
-                        android:layout_width="@dimen/tab_icon_width"
-                        android:layout_height="@dimen/tab_icon_height"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/margin_for_more_button"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/more_bt"/>
-            </RelativeLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/popular_mods_list"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/title_popular_mods"
-                        android:layout_height="@dimen/item_height"
-                        tools:listitem="@layout/item_list_latest" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/popular_maps_block"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/main_margin">
-            <RelativeLayout
-                android:id="@+id/title_popular_maps"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_space">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_centerVertical="true"
-                        android:text="@string/popular_maps"/>
-                    <ImageView
-                        android:id="@+id/more_button"
-                        android:layout_width="@dimen/tab_icon_width"
-                        android:layout_height="@dimen/tab_icon_height"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/margin_for_more_button"
-                        android:src="@drawable/more_bt"/>
-            </RelativeLayout>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/popular_maps_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_height"
-                    android:layout_below="@id/title_popular_maps"
-                    tools:listitem="@layout/item_list_latest" />
-            </RelativeLayout>
-        </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>
