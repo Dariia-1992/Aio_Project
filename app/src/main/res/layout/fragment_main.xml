@@ -65,14 +65,12 @@
             android:layout_marginStart="@dimen/margin_toolbar"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/mods_image"
                 android:layout_width="@dimen/tab_icon"
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_mods"/>
             <TextView
-                android:id="@+id/mods_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -88,14 +86,12 @@
             android:padding="@dimen/tab_padding"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/textures_image"
                 android:layout_width="@dimen/tab_icon"
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_textures"/>
             <TextView
-                android:id="@+id/textures_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -111,14 +107,12 @@
             android:padding="@dimen/tab_padding"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/maps_image"
                 android:layout_width="@dimen/tab_icon"
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_maps"/>
             <TextView
-                android:id="@+id/maps_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -135,14 +129,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/seeds_image"
                 android:layout_width="@dimen/tab_icon"
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_seeds" />
             <TextView
-                android:id="@+id/seeds_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -159,14 +151,12 @@
             android:layout_marginEnd="@dimen/margin_toolbar"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/skins_image"
                 android:layout_width="@dimen/tab_icon"
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_skins"/>
             <TextView
-                android:id="@+id/skins_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

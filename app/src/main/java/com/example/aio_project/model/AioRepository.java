@@ -37,37 +37,44 @@ public class AioRepository {
         return modsList;
     }
 
-    public void getTextures(List<AioModel> items) {
+    public static List<AioModel> getTextures() {
         List<AioModel> allList = createAllList();
         List<AioModel> texturesList = new ArrayList<>();
-        for (AioModel item : items) {
+        for (AioModel item : allList) {
             if (item.getCategory().equals("textures"))
                 texturesList.add(item);
         }
+        return texturesList;
     }
 
-    public void getMaps(List<AioModel> items) {
+    public static List<AioModel> getMaps() {
+        List<AioModel> allList = createAllList();
         List<AioModel> mapsList = new ArrayList<>();
-        for (AioModel item : items) {
+        for (AioModel item : allList) {
             if (item.getCategory().equals("maps"))
                 mapsList.add(item);
         }
+        return mapsList;
     }
 
-    public void getSeeds(List<AioModel> items) {
+    public static List<AioModel> getSeeds() {
+        List<AioModel> allList = createAllList();
         List<AioModel> seedsList = new ArrayList<>();
-        for (AioModel item : items) {
+        for (AioModel item : allList) {
             if (item.getCategory().equals("seeds"))
                 seedsList.add(item);
         }
+        return seedsList;
     }
 
-    public void getSkins(List<AioModel> items) {
+    public static List<AioModel> getSkins() {
+        List<AioModel> allList = createAllList();
         List<AioModel> skinsList = new ArrayList<>();
-        for (AioModel item : items) {
+        for (AioModel item : allList) {
             if (item.getCategory().equals("skins"))
                 skinsList.add(item);
         }
+        return skinsList;
     }
 
     public static List<AioModel> createAioLatestList(){
@@ -184,7 +191,7 @@ public class AioRepository {
     }
 
     public static List<AioModel> createAllList() {
-        //items.clear();
+        items.clear();
         items.addAll(createAioLatestList());
         items.addAll(createAioPopularList());
         items.addAll(createAioPopularMapsList());

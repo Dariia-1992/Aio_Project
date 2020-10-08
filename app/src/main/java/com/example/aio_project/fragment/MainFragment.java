@@ -26,31 +26,15 @@ import com.example.aio_project.model.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.aio_project.model.Filter.MAPS;
 import static com.example.aio_project.model.Filter.MODS;
+import static com.example.aio_project.model.Filter.SEEDS;
+import static com.example.aio_project.model.Filter.SKINS;
+import static com.example.aio_project.model.Filter.TEXTURES;
 
 
 public class MainFragment extends Fragment {
-
-/*    public int MODE_MODS = 0;
-    public int MODE_TEXTURE = 1;
-    public int MODE_MAPS = 2;
-    public int MODE_SEEDS = 3;
-    public int MODE_SKINS = 4;*/
-
     private View view;
-
-
-    //private ImageView mapsImage;
-   // private TextView mapsText;
-    //private ImageView seedsImage;
-    //private TextView seedsText;
-    //private ImageView skinsImage;
-    //private TextView skinsText;
-
-    /*interface OnFragmentInteractionListener {
-
-        void onFragmentInteraction(List<AioModel> currentList);
-    }*/
 
     @Nullable
     @Override
@@ -77,28 +61,16 @@ public class MainFragment extends Fragment {
         recyclerViewMaps.setAdapter(adapter);
         recyclerViewMaps.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        //modsImage = view.findViewById(R.id.mods_image);
-        //modsText = view.findViewById(R.id.mods_text);
-        //texturesImage = view.findViewById(R.id.textures_image);
-        //texturesText = view.findViewById(R.id.textures_text);
-        //mapsImage = view.findViewById(R.id.maps_image);
-        //mapsText = view.findViewById(R.id.maps_text);
-        //seedsImage = view.findViewById(R.id.seeds_image);
-        //seedsText = view.findViewById(R.id.seeds_text);
-       // skinsImage = view.findViewById(R.id.skins_image);
-        //skinsText = view.findViewById(R.id.skins_text);
-
         View modsView= view.findViewById(R.id.mods);
-        modsView.setOnClickListener(view1 -> modsFilter(true));
+        modsView.setOnClickListener(view1 -> modsFilter());
         View textureView = view.findViewById(R.id.textures);
-        textureView.setOnClickListener(view1 -> textureFilters(true));
+        textureView.setOnClickListener(view1 -> textureFilters());
         View mapsView = view.findViewById(R.id.maps);
-        mapsView.setOnClickListener(view1 -> mapsFilter(true));
+        mapsView.setOnClickListener(view1 -> mapsFilter());
         View seedsView = view.findViewById(R.id.seeds);
-        seedsView.setOnClickListener(view1 -> seedsFilter(true));
+        seedsView.setOnClickListener(view1 -> seedsFilter());
         View skinsView = view.findViewById(R.id.skins);
-        skinsView.setOnClickListener(view1 -> skinsFilter(true));
-
+        skinsView.setOnClickListener(view1 -> skinsFilter());
 
         return view;
     }
@@ -127,70 +99,33 @@ public class MainFragment extends Fragment {
       Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_aioDetailsFragment, bundle);
     };
 
-
-    private void modsFilter(boolean isChecked) {
-/*    ImageView modsImage = view.findViewById(R.id.mods_image);
-    TextView modsText = view.findViewById(R.id.mods_text);
-
-    if (getContext() == null)
-        return;
-    modsText.setTextColor(ContextCompat.getColor(getContext(),isChecked ? R.color.toolbar_text : R.color.white));
-    modsImage.setImageResource(isChecked ?  R.drawable.icon_mods_true : R.drawable.icon_mods);*/
-       /* ExploreFragment fragment = new ExploreFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(ExploreFragment.MODE, currentListMods);
-        fragment.setArguments(bundle);*/
-
+    private void modsFilter() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, MODS);
         Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 
-    private void textureFilters(boolean isChecked) {
-        ImageView texturesImage = view.findViewById(R.id.textures_image);
-        TextView texturesText = view.findViewById(R.id.textures_text);
-        if (getContext() == null)
-            return;
-        texturesImage.setImageResource(isChecked ? R.drawable.icon_textures_true : R.drawable.icon_textures);
-        texturesText.setTextColor(ContextCompat.getColor(getContext(),isChecked ? R.color.toolbar_text : R.color.white));
-
-        //fragmentListener.onFragmentInteraction(currentListTextures);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment);
+    private void textureFilters() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ExploreFragment.FILTER, TEXTURES);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 
-    private void mapsFilter(boolean isChecked) {
-        ImageView mapsImage = view.findViewById(R.id.maps_image);
-        TextView mapsText = view.findViewById(R.id.maps_text);
-        if (getContext() == null)
-            return;
-        mapsText.setTextColor(ContextCompat.getColor(getContext(),isChecked ? R.color.toolbar_text : R.color.white));
-        mapsImage.setImageResource(isChecked ? R.drawable.icon_maps_true : R.drawable.icon_maps);
-
-        //fragmentListener.onFragmentInteraction(currentListMaps);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment);
+    private void mapsFilter() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ExploreFragment.FILTER, MAPS);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 
-    private void seedsFilter(boolean isChecked) {
-        ImageView seedsImage = view.findViewById(R.id.seeds_image);
-        TextView seedsText = view.findViewById(R.id.seeds_text);
-        if (getContext() == null)
-            return;
-        seedsText.setTextColor(ContextCompat.getColor(getContext(),isChecked ? R.color.toolbar_text : R.color.white));
-        seedsImage.setImageResource(isChecked ? R.drawable.icon_seeds_true : R.drawable.icon_seeds);
-
-        //fragmentListener.onFragmentInteraction(currentListSeeds);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment);
+    private void seedsFilter() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ExploreFragment.FILTER, SEEDS);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 
-    private void skinsFilter(boolean isChecked) {
-        ImageView skinsImage = view.findViewById(R.id.skins_image);
-        TextView skinsText = view.findViewById(R.id.skins_text);
-        if (getContext() == null)
-            return;
-        skinsText.setTextColor(ContextCompat.getColor(getContext(),isChecked ? R.color.toolbar_text : R.color.white));
-        skinsImage.setImageResource(isChecked ? R.drawable.icon_skins_true : R.drawable.icon_skins);
-
-        //fragmentListener.onFragmentInteraction(currentListSkins);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment);
+    private void skinsFilter() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ExploreFragment.FILTER, SKINS);
+        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
     }
 }

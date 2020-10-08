@@ -13,7 +13,7 @@
 
     <dimen name="item_width">90dp</dimen>
     <dimen name="item_height">124dp</dimen>
-    <dimen name="item_height_in_mode">248dp</dimen>
+    <dimen name="item_height_in_mode">190dp</dimen>
     <dimen name="item_image_width">224dp</dimen>
     <dimen name="download_button_height">58dp</dimen>
     <dimen name="item__image_height">80dp</dimen>
