@@ -2,8 +2,10 @@ package com.example.aio_project.utils;
 
 import android.util.Log;
 
+import com.example.aio_project.model.AioModel;
 import com.example.aio_project.model.CategoryDTO;
 import com.example.aio_project.model.MapsDTO;
+import com.example.aio_project.model.ModelDTO;
 import com.example.aio_project.model.ModsDTO;
 import com.example.aio_project.model.SeedsDTO;
 import com.example.aio_project.model.SkinsDTO;
@@ -23,11 +25,17 @@ public class DownloadHelper {
     }
 
     private static final List<CategoryDTO> categoryList = new ArrayList<>();
-    private static final List<MapsDTO> mapsList = new ArrayList<>();
-    private static final List<ModsDTO> modsList = new ArrayList<>();
+    private static final List<ModelDTO> mapsList = new ArrayList<>();
+    private static final List<ModelDTO> modsList = new ArrayList<>();
     private static final List<SeedsDTO> seedsList = new ArrayList<>();
     private static final List<SkinsDTO> skinsList = new ArrayList<>();
     private static final List<TexturesDTO> texturesList = new ArrayList<>();
+    //private static final List<ModelDTO> items = new ArrayList<>();
+
+
+    public static List<ModelDTO> getItems() {
+        return modsList;
+    }
 
     public static List<CategoryDTO> getCategoryList() { return categoryList; }
 
@@ -65,8 +73,8 @@ public class DownloadHelper {
                     Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
 
                     mapsList.clear();
-                    List<MapsDTO> allCategory = queryDocumentSnapshots.toObjects(MapsDTO.class);
-                    for (MapsDTO item : allCategory) {
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
                         Log.e("TAG", "loadData: 11111111111111");
                         mapsList.add(item);
 /*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
@@ -91,8 +99,8 @@ public class DownloadHelper {
                     Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
 
                     modsList.clear();
-                    List<ModsDTO> allCategory = queryDocumentSnapshots.toObjects(ModsDTO.class);
-                    for (ModsDTO item : allCategory) {
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
                         Log.e("TAG", "loadData: 11111111111111");
                         modsList.add(item);
 /*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
@@ -185,5 +193,10 @@ public class DownloadHelper {
                     if (error != null)
                         error.onError(e.getMessage());
                 });
+    }
+
+    public static String getThumbnailUrl(String name) {
+        String correctName = name.replaceFirst("/", "%2F");
+        return "https://firebasestorage.googleapis.com/v0/b/modify-fiv.appspot.com/o/" + correctName + "?alt=media";
     }
 }

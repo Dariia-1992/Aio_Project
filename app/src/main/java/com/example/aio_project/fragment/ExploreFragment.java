@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +17,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.aio_project.MainActivity;
 import com.example.aio_project.PremiumActivity;
 import com.example.aio_project.R;
-import com.example.aio_project.adapter.AioModsAdapter;
+import com.example.aio_project.adapter.AioCategoryAdapter;
 import com.example.aio_project.model.AioModel;
 import com.example.aio_project.model.AioRepository;
 import com.example.aio_project.model.Filter;
+import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.model.ModsDTO;
+import com.example.aio_project.utils.DownloadHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +37,11 @@ public class ExploreFragment extends Fragment {
     public static final String FILTER = "filter";
 
     private View view;
-    private List<AioModel> filterList = new ArrayList<>();
+    private SwipeRefreshLayout refreshLayout;
+    private List<ModelDTO> modsList = new ArrayList<>();
+    private List<ModelDTO> currentList = new ArrayList<>();
     private Filter mode;
-    private AioModsAdapter adapter;
+    private AioCategoryAdapter adapter;
     private RecyclerView recyclerView;
 
     private TextView filterTitle;
@@ -52,13 +60,16 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_explore, container, false);
-        if (getArguments() != null) {
+/*        if (getArguments() != null) {
             mode = (Filter) getArguments().getSerializable(FILTER);
-        }
+        }*/
 
         MainActivity activity = (MainActivity) requireActivity();
         ImageView backButton = view.findViewById(R.id.back_icon);
         backButton.setOnClickListener(view1 -> activity.onBackPressed());
+
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(this::refreshItems);
 
         filterTitle = view.findViewById(R.id.title);
         modsImage = view.findViewById(R.id.mods_image);
@@ -85,19 +96,42 @@ public class ExploreFragment extends Fragment {
 
         ImageView vip = view.findViewById(R.id.vip);
         vip.setOnClickListener(view1 -> getVip());
+        modsList = DownloadHelper.getItems();
+        adapter = new AioCategoryAdapter(modsList, listener);
+
+        if (DownloadHelper.getItems().isEmpty())
+            refreshItems();
+        else
+            setCurrent(modsList);
 
         recyclerView = view.findViewById(R.id.filter_list);
-        getCurrentList();
-        //adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
-    private void getCurrentList() {
+    private void refreshItems() {
+        refreshLayout.setRefreshing(true);
+        DownloadHelper.loadModsData(() -> {
+            refreshLayout.setRefreshing(false);
+            setCurrent(modsList);
+        }, error -> {
+            refreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    private void setCurrent(List<ModelDTO> skins) {
+        currentList.clear();
+        currentList.addAll(skins);
+        adapter.notifyDataSetChanged();
+    }
+
+   /* private void getCurrentList() {
         switch (mode){
             case MODS:
                 filterList = AioRepository.getMods();
-                adapter = new AioModsAdapter(filterList, listener);
+                adapter = new AioCategoryAdapter(filterList, listener);
                 recyclerView.setAdapter(adapter);
                 filterTitle.setText(R.string.mods_title);
                 modsText.setTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text));
@@ -105,7 +139,7 @@ public class ExploreFragment extends Fragment {
                 break;
             case TEXTURES:
                 filterList = AioRepository.getTextures();
-                adapter = new AioModsAdapter(filterList, listener);
+                adapter = new AioCategoryAdapter(filterList, listener);
                 recyclerView.setAdapter(adapter);
                 filterTitle.setText(R.string.tab_textures);
                 texturesImage.setImageResource(R.drawable.icon_textures_true);
@@ -113,7 +147,7 @@ public class ExploreFragment extends Fragment {
                 break;
             case MAPS:
                 filterList = AioRepository.getMaps();
-                adapter = new AioModsAdapter(filterList, listener);
+                adapter = new AioCategoryAdapter(filterList, listener);
                 recyclerView.setAdapter(adapter);
                 filterTitle.setText(R.string.tab_maps);
                 mapsText.setTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text));
@@ -121,7 +155,7 @@ public class ExploreFragment extends Fragment {
                 break;
             case SEEDS:
                 filterList = AioRepository.getSeeds();
-                adapter = new AioModsAdapter(filterList, listener);
+                adapter = new AioCategoryAdapter(filterList, listener);
                 recyclerView.setAdapter(adapter);
                 filterTitle.setText(R.string.tab_seeds);
                 seedsText.setTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text));
@@ -129,7 +163,7 @@ public class ExploreFragment extends Fragment {
                 break;
             case SKINS:
                 filterList = AioRepository.getSkins();
-                adapter = new AioModsAdapter(filterList, listener);
+                adapter = new AioCategoryAdapter(filterList, listener);
                 recyclerView.setAdapter(adapter);
                 filterTitle.setText(R.string.tab_skins);
                 skinsText.setTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text));
@@ -138,7 +172,7 @@ public class ExploreFragment extends Fragment {
             default:
                 throw new IllegalStateException("Unexpected value: " + mode);
         }
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -152,7 +186,7 @@ public class ExploreFragment extends Fragment {
         startActivity(intent);
     }
 
-    private final AioModsAdapter.OnClickItem listener = id -> {
+    private final AioCategoryAdapter.OnClickItem listener = id -> {
         View view1 = getView();
         if (view1 == null)
             return;

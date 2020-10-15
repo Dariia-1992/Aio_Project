@@ -11,18 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.model.AioModel;
+import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.model.ModsDTO;
 
 import java.util.List;
 
-public class AioModsAdapter extends RecyclerView.Adapter<AioModsAdapter.ViewHolder> {
+public class AioCategoryAdapter extends RecyclerView.Adapter<AioCategoryAdapter.ViewHolder> {
     private final OnClickItem listener;
-    private List<AioModel> items;
+    private List<ModelDTO> items;
 
     public interface OnClickItem {
         void onClicked(String title);
     }
 
-    public AioModsAdapter(List<AioModel> mods, OnClickItem listener) {
+    public AioCategoryAdapter(List<ModelDTO> mods, OnClickItem listener) {
         items = mods;
         this.listener = listener;
     }
@@ -36,9 +38,11 @@ public class AioModsAdapter extends RecyclerView.Adapter<AioModsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final  AioModel aioList = items.get(position);
+        final  ModelDTO aioList = items.get(position);
         holder.aioImage.setImageResource(R.drawable.null_image);
         holder.aioTitle.setText(aioList.getTitle());
+        holder.downloadCount.setText(aioList.getDownloadCount());
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null){
                 listener.onClicked(items.get(position).getTitle());
@@ -54,12 +58,14 @@ public class AioModsAdapter extends RecyclerView.Adapter<AioModsAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView aioImage;
         TextView aioTitle;
+        TextView downloadCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             aioImage = itemView.findViewById(R.id.aio_image);
             aioTitle = itemView.findViewById(R.id.aio_title);
+            downloadCount = itemView.findViewById(R.id.download_count);
         }
     }
 }

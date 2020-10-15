@@ -62,7 +62,7 @@ public class MainFragment extends Fragment {
         recyclerViewLatest.setAdapter(adapter);
         recyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        /*List<AioModel> popularModsList = AioRepository.getPopularAddons();
+        List<AioModel> popularModsList = AioRepository.getPopularAddons();
         adapter = new AioAdapter(popularModsList, listener);
         RecyclerView recyclerViewMods = view.findViewById(R.id.popular_mods_list);
         recyclerViewMods.setAdapter(adapter);
@@ -72,7 +72,7 @@ public class MainFragment extends Fragment {
         adapter = new AioAdapter(popularMapsList, listener);
         RecyclerView recyclerViewMaps = view.findViewById(R.id.popular_maps_list);
         recyclerViewMaps.setAdapter(adapter);
-        recyclerViewMaps.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));*/
+        recyclerViewMaps.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         View modsView= view.findViewById(R.id.mods);
         modsView.setOnClickListener(view1 -> modsFilter());
@@ -85,24 +85,22 @@ public class MainFragment extends Fragment {
         View skinsView = view.findViewById(R.id.skins);
         skinsView.setOnClickListener(view1 -> skinsFilter());
 
-/*        if (DownloadHelper.getCategoryList().isEmpty())
+        if (DownloadHelper.getCategoryList().isEmpty())
             refreshItems();
-        else setCurrentCategory();*/
+        else setCurrentCategory();
 
         setCurrentCategory();
-
-
         return view;
     }
 
-/*    private void setCurrent(List<AioModel> skins) {
-        currentList.clear();
-        currentList.addAll(skins);
+    private void setCurrent(List<AioModel> skins) {
+        //currentList.clear();
+        //currentList.addAll(skins);
         RecyclerView recyclerViewLatest = view.findViewById(R.id.latest_list);
         recyclerViewLatest.setAdapter(adapter);
         recyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         //adapter.notifyDataSetChanged();
-    }*/
+    }
 
     private void getVip() {
         Intent intent = new Intent(this.getActivity(), PremiumActivity.class);
@@ -136,36 +134,36 @@ public class MainFragment extends Fragment {
           return;
       Bundle bundle = new Bundle();
       bundle.putString(AioDetailsFragment.ARG_ITEM_ID, id);
-      Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_aioDetailsFragment, bundle);
+      Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     };
 
     private void modsFilter() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, MODS);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     }
 
     private void textureFilters() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, TEXTURES);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     }
 
     private void mapsFilter() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, MAPS);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     }
 
     private void seedsFilter() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, SEEDS);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     }
 
     private void skinsFilter() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ExploreFragment.FILTER, SKINS);
-        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_exploreFragment, bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
     }
 }

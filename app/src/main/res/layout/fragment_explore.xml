@@ -17,7 +17,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_toolbar"
             android:layout_marginEnd="@dimen/margin_toolbar"
-            android:src="@drawable/back"/>
+            android:src="@drawable/icon_logo"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,17 +25,17 @@
             android:padding="4dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/app_name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/title_color"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="@string/second_title"
+                android:textStyle="bold"
                 android:textSize="12sp"
                 android:textColor="@color/white"/>
         </LinearLayout>
@@ -70,12 +70,12 @@
                 android:layout_height="@dimen/tab_icon"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_mods"/>
+                android:src="@drawable/icon_mods_true"/>
             <TextView
                 android:id="@+id/mods_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/toolbar_text"
                 android:textSize="12sp"
                 android:layout_gravity="center"
                 android:text="@string/tab_mods"/>
