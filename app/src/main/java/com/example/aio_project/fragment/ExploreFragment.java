@@ -73,7 +73,7 @@ public class ExploreFragment extends Fragment {
         skinsText = view.findViewById(R.id.skins_text);
 
         View modsView= view.findViewById(R.id.mods);
-        modsView.setOnClickListener(view1 -> Filter.MAPS);
+        modsView.setOnClickListener(view1 -> onResume());
         View textureView = view.findViewById(R.id.textures);
         textureView.setOnClickListener(view1 -> onResume());
         View mapsView = view.findViewById(R.id.maps);
@@ -93,7 +93,7 @@ public class ExploreFragment extends Fragment {
         return view;
     }
 
-    private void getCurrentList(Filter mode) {
+    private void getCurrentList() {
         switch (mode){
             case MODS:
                 filterList = AioRepository.getMods();
@@ -144,7 +144,7 @@ public class ExploreFragment extends Fragment {
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
-        getCurrentList();
+        //getCurrentList();
     }
 
     private void getVip() {

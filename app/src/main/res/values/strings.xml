@@ -13,6 +13,11 @@
     <string name="mods_title">Mods / Addons</string>
     <string name="details">DETAILS</string>
     <string name="downloading">DOWNLOADING</string>
+    <string name="premium">VIP PREMIUM</string>
+    <string name="remove_ads">REMOVE \n
+           ADS</string>
+    <string name="fast_update">FAST \n
+            UPDATE</string>
 
     <string name="dialog_title_completed">Download Completed!</string>
     <string name="dialog_text_completed">Are you happy when using our app? Can you spare time a few seconds to rate it?</string>

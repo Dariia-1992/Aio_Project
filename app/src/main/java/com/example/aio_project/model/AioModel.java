@@ -13,7 +13,7 @@ public class AioModel {
     private int image;
     private String date;
 
-    public AioModel(String category, String title, String downloads, String views, String description, int image, String date) {
+/*    public AioModel(String category, String title, String downloads, String views, String description, int image, String date) {
         this.category = category;
         this.title = title;
         this.downloads = downloads;
@@ -21,7 +21,7 @@ public class AioModel {
         this.description = description;
         this.image = image;
         this.date = date;
-    }
+    }*/
 
     /*    public AioModel(String title, int image, String category) {
         this.title = title;

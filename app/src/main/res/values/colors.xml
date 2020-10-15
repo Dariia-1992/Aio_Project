@@ -13,4 +13,5 @@
     <color name="main_background">#f1f1f1</color>
     <color name="progress_color">#00ffc0</color>
     <color name="toolbar_text">#f4d22b</color>
+    <color name="premium_text">#ffce17</color>
 </resources>

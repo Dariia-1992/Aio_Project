@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.aio_project.fragment.MainFragment;
@@ -24,5 +25,10 @@ public class MainActivity extends AppCompatActivity {
 //        FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
 //                .add(R.id.main_fragment, fragment);
 //        ft.commit();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
     }
 }
