@@ -14,36 +14,6 @@ public class ModelDTO {
 
     private String seed;
 
-
-   /* public ModelDTO(String title, String downloadCount, int rating, String timeStamp, String viewCount) {
-        this.title = title;
-        this.downloadCount = downloadCount;
-        this.rating = rating;
-        this.timeStamp = timeStamp;
-        this.viewCount = viewCount;
-    }
-
-    public ModelDTO(String title, String downloadCount, int rating, String timeStamp, String viewCount, String description, String fileUrl, boolean isUpload) {
-        this.title = title;
-        this.downloadCount = downloadCount;
-        this.rating = rating;
-        this.timeStamp = timeStamp;
-        this.viewCount = viewCount;
-        this.description = description;
-        this.fileUrl = fileUrl;
-        this.isUpload = isUpload;
-    }
-
-    public ModelDTO(String title, String downloadCount, int rating, String timeStamp, String viewCount, String description, String seed) {
-        this.title = title;
-        this.downloadCount = downloadCount;
-        this.rating = rating;
-        this.timeStamp = timeStamp;
-        this.viewCount = viewCount;
-        this.description = description;
-        this.seed = seed;
-    }*/
-
     public String getTitle() {
         return title;
     }
