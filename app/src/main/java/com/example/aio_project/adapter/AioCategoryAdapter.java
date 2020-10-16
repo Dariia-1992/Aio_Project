@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aio_project.R;
-import com.example.aio_project.model.AioModel;
 import com.example.aio_project.model.ModelDTO;
-import com.example.aio_project.model.ModsDTO;
 
 import java.util.List;
 

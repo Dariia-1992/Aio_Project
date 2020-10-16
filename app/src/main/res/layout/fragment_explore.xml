@@ -183,29 +183,36 @@
         android:layout_height="2dp"
         android:layout_below="@id/tab_layout"
         android:background="@color/title_color"/>
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="40dp"
         android:layout_below="@id/view_color"
-        android:orientation="horizontal"
         android:background="@color/black">
+        <ImageView
+            android:id="@+id/background_search"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:layout_marginRight="@dimen/main_margin"
+            android:src="@drawable/background_searc_all"
+            android:layout_marginLeft="@dimen/main_margin"/>
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:layout_marginLeft="@dimen/main_margin"
-            android:background="@drawable/background_search"/>
+            android:visibility="gone"/>
         <ImageView
             android:id="@+id/sort"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/sort_down"
-            android:padding="5dp"/>
-    </LinearLayout>
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/main_margin"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/sort_down" />
+    </RelativeLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"

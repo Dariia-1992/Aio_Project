@@ -1,9 +1,6 @@
 package com.example.aio_project.model;
 
 import android.util.Log;
-
-import com.example.aio_project.BuildConfig;
-import com.example.aio_project.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -18,34 +15,33 @@ public class AioRepository {
         void onError(String error);
     }
 
-    private static final List<AioModel> items = new ArrayList<>();
+
+    private static final List<CategoryDTO> categoryList = new ArrayList<>();
+
+    private static final List<ModelDTO> mapsList = new ArrayList<>();
+    private static final List<ModelDTO> modsList = new ArrayList<>();
+    private static final List<ModelDTO> seedsList = new ArrayList<>();
+    private static final List<ModelDTO> skinsList = new ArrayList<>();
+    private static final List<ModelDTO> texturesList = new ArrayList<>();
 
 
-    public static List<AioModel> getItems() {
-        return items;
-    }
+    public static List<ModelDTO> getItems() { return modsList; }
+    public static List<CategoryDTO> getCategoryList() { return categoryList; }
 
-    public static AioModel getItemById(String itemId) {
-        for(AioModel info : items) {
-            if(info.getId().equals(itemId))
-                return info;
-        }
-        return null;
-    }
-
-    public static void loadData(IDataLoaded success, IDataLoadedError error) {
+    public static void loadCategory(IDataLoaded success, IDataLoadedError error) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection("mod_seeds")
+        database.collection("mod_category")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
 
-                    items.clear();
-                    List<AioModel> allAioList = queryDocumentSnapshots.toObjects(AioModel.class);
-                    for (AioModel item : allAioList) {
+                    categoryList.clear();
+                    List<CategoryDTO> allCategory = queryDocumentSnapshots.toObjects(CategoryDTO.class);
+                    for (CategoryDTO item : allCategory) {
                         Log.e("TAG", "loadData: 11111111111111");
-                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
-                            items.add(item);
+                        categoryList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
                     }
 
                     if (success != null)
@@ -58,211 +54,138 @@ public class AioRepository {
                 });
     }
 
-    public static List<AioModel> getLatest() {
-        List<AioModel> list = createAioLatestList();
-        return list;
+    public static void loadModsData(IDataLoaded success, IDataLoadedError error) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("mod_mods")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
+
+                    modsList.clear();
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
+                        Log.e("TAG", "loadData: 11111111111111");
+                        modsList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
+                    }
+
+                    if (success != null)
+                        success.onLoaded();
+                })
+
+                .addOnFailureListener(e -> {
+                    if (error != null)
+                        error.onError(e.getMessage());
+                });
     }
 
-    public static List<AioModel> getPopularAddons() {
-        List<AioModel> list = createAioPopularList();
-        return list;
+    public static void loadTexturesData(IDataLoaded success, IDataLoadedError error) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("mod_textures")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
+
+                    texturesList.clear();
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
+                        Log.e("TAG", "loadData: 11111111111111");
+                        texturesList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
+                    }
+
+                    if (success != null)
+                        success.onLoaded();
+                })
+
+                .addOnFailureListener(e -> {
+                    if (error != null)
+                        error.onError(e.getMessage());
+                });
     }
 
-    public static List<AioModel> getPopularMaps() {
-        List<AioModel> list = createAioPopularMapsList();
-        return list;
+    public static void loadMapsData(IDataLoaded success, IDataLoadedError error) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("mod_maps")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
+
+                    mapsList.clear();
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
+                        Log.e("TAG", "loadData: 11111111111111");
+                        mapsList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
+                    }
+
+                    if (success != null)
+                        success.onLoaded();
+                })
+
+                .addOnFailureListener(e -> {
+                    if (error != null)
+                        error.onError(e.getMessage());
+                });
     }
 
-    public static List<AioModel> getMods() {
-        List<AioModel> allList = createAllList();
-        List<AioModel> modsList = new ArrayList<>();
-        for (AioModel item : allList) {
-            if (item.getCategory().equals("mods"))
-                modsList.add(item);
-        }
-        return modsList;
+    public static void loadSeedsData(IDataLoaded success, IDataLoadedError error) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("mod_seeds")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
+
+                    seedsList.clear();
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
+                        Log.e("TAG", "loadData: 11111111111111");
+                        seedsList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
+                    }
+
+                    if (success != null)
+                        success.onLoaded();
+                })
+
+                .addOnFailureListener(e -> {
+                    if (error != null)
+                        error.onError(e.getMessage());
+                });
     }
 
-    public static List<AioModel> getTextures() {
-        List<AioModel> allList = createAllList();
-        List<AioModel> texturesList = new ArrayList<>();
-        for (AioModel item : allList) {
-            if (item.getCategory().equals("textures"))
-                texturesList.add(item);
-        }
-        return texturesList;
+    public static void loadSkinsData(IDataLoaded success, IDataLoadedError error) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("mod_skins")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    Log.e("TAG", "loadDat2a: " + queryDocumentSnapshots.size());
+
+                    skinsList.clear();
+                    List<ModelDTO> allCategory = queryDocumentSnapshots.toObjects(ModelDTO.class);
+                    for (ModelDTO item : allCategory) {
+                        Log.e("TAG", "loadData: 11111111111111");
+                        skinsList.add(item);
+/*                        if(BuildConfig.showedCategory.equalsIgnoreCase(item.getCategory()))
+                            categoryList.add(item);*/
+                    }
+
+                    if (success != null)
+                        success.onLoaded();
+                })
+
+                .addOnFailureListener(e -> {
+                    if (error != null)
+                        error.onError(e.getMessage());
+                });
     }
 
-    public static List<AioModel> getMaps() {
-        List<AioModel> allList = createAllList();
-        List<AioModel> mapsList = new ArrayList<>();
-        for (AioModel item : allList) {
-            if (item.getCategory().equals("maps"))
-                mapsList.add(item);
-        }
-        return mapsList;
+    public static String getThumbnailUrl(String name) {
+        String correctName = name.replaceFirst("/", "%2F");
+        return "https://firebasestorage.googleapis.com/v0/b/modify-fiv.appspot.com/o/" + correctName + "?alt=media";
     }
-
-    public static List<AioModel> getSeeds() {
-        List<AioModel> allList = createAllList();
-        List<AioModel> seedsList = new ArrayList<>();
-        for (AioModel item : allList) {
-            if (item.getCategory().equals("seeds"))
-                seedsList.add(item);
-        }
-        return seedsList;
-    }
-
-    public static List<AioModel> getSkins() {
-        List<AioModel> allList = createAllList();
-        List<AioModel> skinsList = new ArrayList<>();
-        for (AioModel item : allList) {
-            if (item.getCategory().equals("skins"))
-                skinsList.add(item);
-        }
-        return skinsList;
-    }
-
-    public static List<AioModel> createAioLatestList(){
-        List<AioModel> latestList = new ArrayList<>();
-
-/*        latestList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        latestList.add(new AioModel("textures", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        latestList.add(new AioModel("skins", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        latestList.add(new AioModel("seeds", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        latestList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));*/
-
-        return latestList;
-    }
-
-    public static List<AioModel>  createAioPopularList() {
-        List<AioModel> popularModsList = new ArrayList<>();
-
-/*        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularModsList.add(new AioModel("mods", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));*/
-
-        return popularModsList;
-    }
-
-    public static List<AioModel> createAioPopularMapsList() {
-        List<AioModel> popularMapsList = new ArrayList<>();
-
-/*        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));
-
-        popularMapsList.add(new AioModel("maps", "Lorem ipsum dolor", "100K", "150K",
-                "Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor hvghreiuhv irhfjnhdjc dbhdsbvhb sjdhbvj" +
-                        "kdfvkjnvv mmrkbjtrh pgvoekmdc hhreighie rujv gbeuybgbd hbcewbywe uygcueywb cansxyu vbdvhbvr",
-                R.drawable.null_image, "12.05.20"));*/
-
-        return popularMapsList;
-    }
-
-    public static List<AioModel> createAllList() {
-        items.clear();
-        items.addAll(createAioLatestList());
-        items.addAll(createAioPopularList());
-        items.addAll(createAioPopularMapsList());
-        return items;
-    }
-
-/*
-    public void getCurrentList() {
-        currentListMods.clear();
-        currentListTextures.clear();
-        currentListMaps.clear();
-        currentListSeeds.clear();
-        currentListSkins.clear();
-
-        for (AioModel item : items) {
-            if (item.getCategory().equals("mods"))
-                currentListMods.add(item);
-            if (item.getCategory().equals("textures"))
-                currentListTextures.add(item);
-            if (item.getCategory().equals("maps"))
-                currentListMaps.add(item);
-            if (item.getCategory().equals("seeds"))
-                currentListSeeds.add(item);
-            if (item.getCategory().equals("skins"))
-                currentListSkins.add(item);
-        }
-    }*/
 }
