@@ -151,7 +151,6 @@
                         android:layout_marginTop="11dp"
                         android:textSize="13sp"
                         android:visibility="gone"
-                        android:text="@string/aio_description"
                         android:textColor="@color/black"/>
 
                 </RelativeLayout>

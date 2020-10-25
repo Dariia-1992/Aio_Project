@@ -1,7 +1,7 @@
 package com.example.aio_project.model;
 
 public class CategoryDTO {
-    private String name;
+    private String categoryname;
 
-    public String getName() { return name; }
+    public String getCategoryname() { return categoryname; }
 }

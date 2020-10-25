@@ -1,6 +1,6 @@
 package com.example.aio_project.model;
 
-public enum Filter {
+public enum CategoryType {
     MODS,
     TEXTURES,
     MAPS,

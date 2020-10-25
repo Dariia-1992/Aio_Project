@@ -2,10 +2,10 @@ package com.example.aio_project.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -23,9 +22,8 @@ import com.example.aio_project.PremiumActivity;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.AioCategoryAdapter;
 import com.example.aio_project.model.AioRepository;
-import com.example.aio_project.model.Filter;
+import com.example.aio_project.model.ImageCollectionList;
 import com.example.aio_project.model.ModelDTO;
-import com.example.aio_project.utils.DownloadHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +32,8 @@ public class ExploreFragment extends Fragment {
 
     private View view;
     private SwipeRefreshLayout refreshLayout;
+
+    private List<ImageCollectionList> imageList = new ArrayList<>();
     private List<ModelDTO> modsList = new ArrayList<>();
     private List<ModelDTO> texturesList = new ArrayList<>();
     private List<ModelDTO> mapsList = new ArrayList<>();
@@ -45,20 +45,20 @@ public class ExploreFragment extends Fragment {
     private AioCategoryAdapter adapter;
     private RecyclerView recyclerView;
 
-    @Nullable
+    /*@Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_explore, container, false);
+        view = inflater.inflate(R.layout.fragment_base, container, false);
 
         MainActivity activity = (MainActivity) requireActivity();
-        ImageView backButton = view.findViewById(R.id.back_icon);
-        backButton.setOnClickListener(view1 -> activity.onBackPressed());
+        //ImageView backButton = view.findViewById(R.id.back_icon);
+        //backButton.setOnClickListener(view1 -> activity.onBackPressed());
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(this::refreshItems);
-
-        View modsView= view.findViewById(R.id.mods);
-        modsView.setOnClickListener(view1 -> getCurrentList(Filter.MODS));
+        refreshLayout.setOnRefreshListener(this::getMods);
+*/
+       // View modsView= view.findViewById(R.id.mods);
+/*        modsView.setOnClickListener(view1 -> getCurrentList(Filter.MODS));
         View textureView = view.findViewById(R.id.textures);
         textureView.setOnClickListener(view1 -> getCurrentList(Filter.TEXTURES));
         View mapsView = view.findViewById(R.id.maps);
@@ -66,29 +66,44 @@ public class ExploreFragment extends Fragment {
         View seedsView = view.findViewById(R.id.seeds);
         seedsView.setOnClickListener(view1 -> getCurrentList(Filter.SEEDS));
         View skinsView = view.findViewById(R.id.skins);
-        skinsView.setOnClickListener(view1 ->getCurrentList(Filter.SKINS));
+        skinsView.setOnClickListener(view1 ->getCurrentList(Filter.SKINS));*/
 
-        ImageView vip = view.findViewById(R.id.vip);
-        vip.setOnClickListener(view1 -> getVip());
+       // ImageView vip = view.findViewById(R.id.vip);
+        //vip.setOnClickListener(view1 -> getVip());
 
-        recyclerView = view.findViewById(R.id.filter_list);
-        modsList = AioRepository.getItems();
+/*        recyclerView = view.findViewById(R.id.filter_list);
+        modsList = AioRepository.getMods();
         adapter = new AioCategoryAdapter(modsList, listener);
 
-        if (AioRepository.getItems().isEmpty())
-            refreshItems();
+        if (AioRepository.getMods().isEmpty())
+            getMods();
         else
             setCurrent(modsList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
-        return view;
+        recyclerView.setAdapter(adapter);*/
+/*        return view;
+    }*/
+
+    private void getImage() {
+        AioRepository.loadImageCollection(() -> {
+            List<ImageCollectionList> images = new ArrayList<>();
+            images.addAll(imageList);
+        }, error -> {
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+        });
     }
+
+/*    private void settingCompliance() {
+        getImage();
+    }*/
 
     private void getSkinsList() {
         refreshLayout.setRefreshing(true);
         AioRepository.loadSkinsData(() -> {
             refreshLayout.setRefreshing(false);
+            //Log.e("TAG", "loadData: FFFFFFFFFFFFFFFFFF");
+           // settingCompliance();
             setCurrent(skinsList);
         }, error -> {
             refreshLayout.setRefreshing(false);
@@ -96,10 +111,20 @@ public class ExploreFragment extends Fragment {
         });
     }
 
-    private void refreshItems() {
+    private void getTextures() {
+        AioRepository.loadTexturesData(() -> {
+            //Log.e("TAG", "loadData: FFFFFFFFFFFFFFFFFF");
+            setCurrent(texturesList);
+        }, error -> {
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    private void getMods() {
         refreshLayout.setRefreshing(true);
         AioRepository.loadModsData(() -> {
             refreshLayout.setRefreshing(false);
+            Log.e("TAG", "loadData: FFFFFFFFFFFFFFFFFF");
             setCurrent(modsList);
         }, error -> {
             refreshLayout.setRefreshing(false);
@@ -114,7 +139,7 @@ public class ExploreFragment extends Fragment {
     }
 
 
-    private void getCurrentList(Filter mode) {
+/*    private void getCurrentList(Filter mode) {
 
         TextView modsText = view.findViewById(R.id.mods_text);
         TextView texturesText = view.findViewById(R.id.textures_text);
@@ -131,11 +156,20 @@ public class ExploreFragment extends Fragment {
         switch (mode){
             case MODS:
                 changeTextColor(true, modsText);
-                modsImage.setImageResource(R.drawable.icon_mods_true);
+                MOD_MODS = true;
+                modsImage.setImageResource(MOD_MODS ? R.drawable.icon_mods : R.drawable.icon_mods_true);
                 break;
             case TEXTURES:
                 changeTextColor(true, texturesText);
                 texturesImage.setImageResource(R.drawable.icon_textures_true);
+                texturesList = AioRepository.getTextures();
+
+                if (AioRepository.getTextures().isEmpty())
+                    getTextures();
+                else
+                    setCurrent(texturesList);
+                //getTextures();
+                //setCurrent(texturesList);
                 break;
             case MAPS:
                 changeTextColor(true, mapsText);
@@ -153,7 +187,7 @@ public class ExploreFragment extends Fragment {
             default:
                 throw new IllegalStateException("Unexpected value: " + mode);
         }
-    }
+    }*/
 
     private void changeTextColor(boolean isChecked, TextView textView) {
         if (getContext() == null)
