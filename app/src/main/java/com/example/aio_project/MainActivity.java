@@ -1,8 +1,6 @@
 package com.example.aio_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView vip = findViewById(R.id.vip);
         vip.setOnClickListener(view -> getVip());
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabLayout);

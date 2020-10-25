@@ -126,16 +126,12 @@
             android:src="@drawable/sort_down" />
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <FrameLayout
+        android:id="@+id/host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_graph"
         android:layout_below="@id/search_layout"
-        android:layout_above="@id/ad_container"
-        tools:ignore="ObsoleteLayoutParam" />
+        android:layout_above="@id/ad_container" />
     <FrameLayout
         android:id="@+id/ad_container"
         android:layout_width="match_parent"

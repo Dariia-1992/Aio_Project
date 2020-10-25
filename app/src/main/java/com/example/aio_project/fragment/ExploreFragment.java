@@ -14,13 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.aio_project.DetailsActivity;
 import com.example.aio_project.MainActivity;
-import com.example.aio_project.PremiumActivity;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.AioCategoryAdapter;
 import com.example.aio_project.model.AioRepository;
@@ -122,11 +121,8 @@ public class ExploreFragment extends Fragment {
     }
 
     private final AioCategoryAdapter.OnClickItem listener = id -> {
-        View view1 = getView();
-        if (view1 == null)
-            return;
-        Bundle bundle = new Bundle();
-        bundle.putString(AioDetailsFragment.ARG_ITEM_ID, id);
-        Navigation.findNavController(getView()).navigate(R.id.action_exploreFragment_to_aioDetailsFragment, bundle);
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+        intent.putExtra(DetailsActivity.ARG_ITEM_ID, id);
+        startActivity(intent);
     };
 }

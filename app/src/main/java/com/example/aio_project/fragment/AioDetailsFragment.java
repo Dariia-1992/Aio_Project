@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.example.aio_project.MainActivity;
 import com.example.aio_project.PremiumActivity;
 import com.example.aio_project.R;
-import com.example.aio_project.model.AioRepository;
 import com.example.aio_project.model.ModelDTO;
 
 public class AioDetailsFragment extends Fragment {
