@@ -16,9 +16,7 @@ public class AioRepository {
         void onError(String error);
     }
 
-    private static final List<String> categoryList = new ArrayList<>();
     private static final List<ImageCollectionList> imageRes = new ArrayList<>();
-
     private static final List<ModelDTO> mapsList = new ArrayList<>();
     private static final List<ModelDTO> modsList = new ArrayList<>();
     private static final List<ModelDTO> seedsList = new ArrayList<>();
@@ -27,15 +25,6 @@ public class AioRepository {
 
     public static List<ModelDTO> getMods() { return modsList; }
     public static List<ModelDTO> getTextures() { return texturesList; }
-
-    public static List<String> getCategoryList() {
-        categoryList.add("Mods");
-        categoryList.add("Textures");
-        categoryList.add("Maps");
-        categoryList.add("Seeds");
-        categoryList.add("Skins");
-        return categoryList;
-    }
 
      public static void loadModsData(IDataLoaded success, IDataLoadedError error) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();

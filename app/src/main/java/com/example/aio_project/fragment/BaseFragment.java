@@ -29,7 +29,7 @@ import com.example.aio_project.model.ModelDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExploreFragment extends Fragment {
+public class BaseFragment extends Fragment {
 
     private View view;
     private SwipeRefreshLayout refreshLayout;
@@ -50,10 +50,6 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base, container, false);
-
-        MainActivity activity = (MainActivity) requireActivity();
-        //ImageView backButton = view.findViewById(R.id.back_icon);
-        //backButton.setOnClickListener(view1 -> activity.onBackPressed());
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(this::getMods);
