@@ -7,6 +7,7 @@
     <string name="tab_maps">Maps</string>
     <string name="tab_seeds">Seeds</string>
     <string name="tab_skins">Skins</string>
+    <string name="search_text">Type to search...</string>
     <string name="latest">Latest</string>
     <string name="popular_mods">Popular Mods / Addons</string>
     <string name="popular_maps">Popular Maps</string>

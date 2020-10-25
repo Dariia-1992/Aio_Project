@@ -3,29 +3,16 @@ package com.example.aio_project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.aio_project.adapter.AioCategoryAdapter;
 import com.example.aio_project.adapter.SampleFragmentPagerAdapter;
-import com.example.aio_project.fragment.AioDetailsFragment;
-import com.example.aio_project.fragment.BaseFragment;
-import com.example.aio_project.model.AioRepository;
-import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.fragment.ExploreFragment;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -87,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new SampleFragmentPagerAdapter(getSupportFragmentManager(), 1, this);
-        adapter.addFragment(new BaseFragment(), "Mods", tabIcons[0]);
-        adapter.addFragment(new BaseFragment(), "Textures",tabIcons[1]);
-        adapter.addFragment(new BaseFragment(), "Maps", tabIcons[2]);
-        adapter.addFragment(new BaseFragment(), "Seeds", tabIcons[3]);
-        adapter.addFragment(new BaseFragment(), "Skins", tabIcons[4]);
+        adapter.addFragment(new ExploreFragment(), "Mods", tabIcons[0]);
+        adapter.addFragment(new ExploreFragment(), "Textures",tabIcons[1]);
+        adapter.addFragment(new ExploreFragment(), "Maps", tabIcons[2]);
+        adapter.addFragment(new ExploreFragment(), "Seeds", tabIcons[3]);
+        adapter.addFragment(new ExploreFragment(), "Skins", tabIcons[4]);
         viewPager.setAdapter(adapter);
     }
 

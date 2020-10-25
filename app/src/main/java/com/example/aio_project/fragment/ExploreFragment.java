@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -45,7 +47,7 @@ public class ExploreFragment extends Fragment {
     private AioCategoryAdapter adapter;
     private RecyclerView recyclerView;
 
-    /*@Nullable
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base, container, false);
@@ -56,22 +58,8 @@ public class ExploreFragment extends Fragment {
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(this::getMods);
-*/
-       // View modsView= view.findViewById(R.id.mods);
-/*        modsView.setOnClickListener(view1 -> getCurrentList(Filter.MODS));
-        View textureView = view.findViewById(R.id.textures);
-        textureView.setOnClickListener(view1 -> getCurrentList(Filter.TEXTURES));
-        View mapsView = view.findViewById(R.id.maps);
-        mapsView.setOnClickListener(view1 -> getCurrentList(Filter.MAPS));
-        View seedsView = view.findViewById(R.id.seeds);
-        seedsView.setOnClickListener(view1 -> getCurrentList(Filter.SEEDS));
-        View skinsView = view.findViewById(R.id.skins);
-        skinsView.setOnClickListener(view1 ->getCurrentList(Filter.SKINS));*/
 
-       // ImageView vip = view.findViewById(R.id.vip);
-        //vip.setOnClickListener(view1 -> getVip());
-
-/*        recyclerView = view.findViewById(R.id.filter_list);
+        recyclerView = view.findViewById(R.id.filter_list);
         modsList = AioRepository.getMods();
         adapter = new AioCategoryAdapter(modsList, listener);
 
@@ -81,9 +69,9 @@ public class ExploreFragment extends Fragment {
             setCurrent(modsList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);*/
-/*        return view;
-    }*/
+        recyclerView.setAdapter(adapter);
+        return view;
+    }
 
     private void getImage() {
         AioRepository.loadImageCollection(() -> {
@@ -94,16 +82,11 @@ public class ExploreFragment extends Fragment {
         });
     }
 
-/*    private void settingCompliance() {
-        getImage();
-    }*/
 
     private void getSkinsList() {
         refreshLayout.setRefreshing(true);
         AioRepository.loadSkinsData(() -> {
             refreshLayout.setRefreshing(false);
-            //Log.e("TAG", "loadData: FFFFFFFFFFFFFFFFFF");
-           // settingCompliance();
             setCurrent(skinsList);
         }, error -> {
             refreshLayout.setRefreshing(false);
@@ -136,68 +119,6 @@ public class ExploreFragment extends Fragment {
         currentList.clear();
         currentList.addAll(skins);
         adapter.notifyDataSetChanged();
-    }
-
-
-/*    private void getCurrentList(Filter mode) {
-
-        TextView modsText = view.findViewById(R.id.mods_text);
-        TextView texturesText = view.findViewById(R.id.textures_text);
-        TextView mapsText = view.findViewById(R.id.maps_text);
-        TextView seedsText = view.findViewById(R.id.seeds_text);
-        TextView skinsText = view.findViewById(R.id.skins_text);
-
-        ImageView modsImage = view.findViewById(R.id.mods_image);
-        ImageView texturesImage = view.findViewById(R.id.textures_image);
-        ImageView mapsImage = view.findViewById(R.id.maps_image);
-        ImageView seedsImage = view.findViewById(R.id.seeds_image);
-        ImageView skinsImage = view.findViewById(R.id.skins_image);
-
-        switch (mode){
-            case MODS:
-                changeTextColor(true, modsText);
-                MOD_MODS = true;
-                modsImage.setImageResource(MOD_MODS ? R.drawable.icon_mods : R.drawable.icon_mods_true);
-                break;
-            case TEXTURES:
-                changeTextColor(true, texturesText);
-                texturesImage.setImageResource(R.drawable.icon_textures_true);
-                texturesList = AioRepository.getTextures();
-
-                if (AioRepository.getTextures().isEmpty())
-                    getTextures();
-                else
-                    setCurrent(texturesList);
-                //getTextures();
-                //setCurrent(texturesList);
-                break;
-            case MAPS:
-                changeTextColor(true, mapsText);
-                mapsImage.setImageResource(R.drawable.icon_maps_true);
-                break;
-            case SEEDS:
-                changeTextColor(true, seedsText);
-                seedsImage.setImageResource(R.drawable.icon_seeds_true);
-                break;
-            case SKINS:
-                changeTextColor(true, skinsText);
-                skinsImage.setImageResource(R.drawable.icon_skins_true);
-                getSkinsList();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + mode);
-        }
-    }*/
-
-    private void changeTextColor(boolean isChecked, TextView textView) {
-        if (getContext() == null)
-            return;
-        textView.setTextColor(ContextCompat.getColor(getContext(), isChecked ? R.color.toolbar_text : R.color.white));
-    }
-
-    private void getVip() {
-        Intent intent = new Intent(this.getActivity(), PremiumActivity.class);
-        startActivity(intent);
     }
 
     private final AioCategoryAdapter.OnClickItem listener = id -> {
