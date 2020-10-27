@@ -79,12 +79,21 @@
         android:layout_below="@id/tabLayout"
         android:background="@color/title_color"/>
 
-    <!--  TODO: sort fields  -->
+    <RelativeLayout
+        android:id="@+id/sortContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sort_container_height"
+        android:layout_below="@id/divider"
+        android:background="@color/black">
+
+        <!--  TODO: sort fields  -->
+
+    </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/divider"/>
+        android:layout_below="@id/sortContainer"/>
 
 </RelativeLayout>

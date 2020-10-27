@@ -19,15 +19,16 @@
     <dimen name="vip_icon_margin">12dp</dimen>
     <dimen name="vip_icon_width">32dp</dimen>
     <dimen name="vip_icon_height">24dp</dimen>
-    <dimen name="tab_container_height">48dp</dimen>
+    <dimen name="tab_container_height">49dp</dimen>
     <dimen name="tab_icon_size">17dp</dimen>
     <dimen name="tab_content_item_height">275dp</dimen>
     <dimen name="tab_content_item_margin">12dp</dimen>
     <dimen name="tab_content_item_image_height">172dp</dimen>
     <dimen name="tab_content_item_border_width">2dp</dimen>
-    <dimen name="tab_content_item_text_side_margin">12dp</dimen>
+    <dimen name="tab_content_item_text_side_margin">14dp</dimen>
     <dimen name="tab_content_item_text_top_margin">6dp</dimen>
     <dimen name="tab_content_item_icon_width">27dp</dimen>
     <dimen name="tab_content_item_icon_height">25dp</dimen>
     <dimen name="tab_content_item_second_text_margin">8dp</dimen>
+    <dimen name="sort_container_height">43dp</dimen>
 </resources>
