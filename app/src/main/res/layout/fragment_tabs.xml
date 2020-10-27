@@ -61,4 +61,21 @@
 
     </RelativeLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        android:layout_below="@id/toolbar"
+        style="@style/MyCustomTabLayout"
+        android:background="@color/black" />
+
+<!--  TODO: sort fields  -->
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabLayout"/>
+
 </RelativeLayout>
