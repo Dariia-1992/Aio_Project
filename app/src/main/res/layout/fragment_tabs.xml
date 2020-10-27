@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_background">
+
+        <ImageView
+            android:id="@+id/toolbarIcon"
+            android:layout_width="@dimen/toolbar_icon_size"
+            android:layout_height="@dimen/toolbar_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/toolbar_icon_margin"
+            android:src="@drawable/icon_logo"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/toolbarIcon"
+            android:layout_toStartOf="@id/vipIcon"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="17sp"
+                android:textColor="@color/title_color"
+                fontPath="fonts/Roboto-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:includeFontPadding="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/second_title"
+                android:textSize="13sp"
+                android:textColor="@color/white"
+                fontPath="fonts/Roboto-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/vipIcon"
+            android:layout_width="@dimen/vip_icon_width"
+            android:layout_height="@dimen/vip_icon_height"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/iap_subscribe"
+            android:layout_marginEnd="@dimen/vip_icon_margin"
+            android:layout_marginStart="@dimen/vip_icon_margin"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
