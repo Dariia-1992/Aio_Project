@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,136 +7,158 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolbar_background">
-        <ImageView
-            android:id="@+id/back_icon"
-            android:layout_width="@dimen/logo_icon"
-            android:layout_height="@dimen/logo_icon"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_toolbar"
-            android:layout_marginEnd="@dimen/margin_toolbar"
-            android:src="@drawable/icon_logo"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/back_icon"
-            android:padding="4dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/title_color"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/second_title"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/vip"
-            android:layout_width="@dimen/logo_icon"
-            android:layout_height="@dimen/logo_icon"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/iap_subscribe"
-            android:layout_marginEnd="@dimen/margin_toolbar"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        android:layout_below="@id/app_bar"
-        style="@style/MyCustomTabLayout"
-        android:background="@color/black" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout"/>
+<!--<RelativeLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".MainActivity">-->
 
-    <View
-        android:id="@+id/view_color"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/tabLayout"
-        android:background="@color/title_color"/>
-    <LinearLayout
-        android:id="@+id/search_layout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/view_color"
-        android:orientation="horizontal"
-        android:background="@color/black">
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="@dimen/main_margin"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/background_search">
-            <ImageView
-                android:id="@+id/background_search"
-                android:layout_width="@dimen/tab_icon"
-                android:layout_height="@dimen/tab_icon"
-                android:layout_centerVertical="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_search"
-                android:layout_marginStart="@dimen/main_margin"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/search_text"
-                android:textSize="12sp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/background_search"
-                android:textColor="@color/white"/>
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/app_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/toolbar_background">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/back_icon"-->
+<!--            android:layout_width="@dimen/logo_icon"-->
+<!--            android:layout_height="@dimen/logo_icon"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="@dimen/margin_toolbar"-->
+<!--            android:layout_marginEnd="@dimen/margin_toolbar"-->
+<!--            android:src="@drawable/icon_logo"/>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toEndOf="@id/back_icon"-->
+<!--            android:padding="4dp"-->
+<!--            android:orientation="vertical">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/app_name"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/title_color"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/second_title"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/white"/>-->
+<!--        </LinearLayout>-->
+<!--        <ImageView-->
+<!--            android:id="@+id/vip"-->
+<!--            android:layout_width="@dimen/logo_icon"-->
+<!--            android:layout_height="@dimen/logo_icon"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:src="@drawable/iap_subscribe"-->
+<!--            android:layout_marginEnd="@dimen/margin_toolbar"-->
+<!--            android:layout_centerVertical="true"/>-->
+<!--    </RelativeLayout>-->
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/sort"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/main_margin"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/sort_down" />
-    </LinearLayout>
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/tabLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:minHeight="?actionBarSize"-->
+<!--        android:layout_below="@id/app_bar"-->
+<!--        style="@style/MyCustomTabLayout"-->
+<!--        android:background="@color/black" />-->
 
-    <FrameLayout
-        android:id="@+id/host_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_layout"
-        android:layout_above="@id/ad_container" />
-    <FrameLayout
-        android:id="@+id/ad_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/view_pager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/tabLayout"/>-->
 
-</RelativeLayout>
+<!--    <View-->
+<!--        android:id="@+id/view_color"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:layout_below="@id/tabLayout"-->
+<!--        android:background="@color/title_color"/>-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/search_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_below="@id/view_color"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:background="@color/black">-->
+<!--        <RelativeLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="2"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginStart="@dimen/main_margin"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:background="@drawable/background_search">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/background_search"-->
+<!--                android:layout_width="@dimen/tab_icon"-->
+<!--                android:layout_height="@dimen/tab_icon"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:src="@drawable/ic_search"-->
+<!--                android:layout_marginStart="@dimen/main_margin"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="@string/search_text"-->
+<!--                android:textSize="12sp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginTop="6dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_toEndOf="@+id/background_search"-->
+<!--                android:textColor="@color/white"/>-->
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/search"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:visibility="gone"/>-->
+<!--        </RelativeLayout>-->
+<!--        <ImageView-->
+<!--            android:id="@+id/sort"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="@dimen/main_margin"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:src="@drawable/sort_down" />-->
+<!--    </LinearLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/host_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/search_layout"-->
+<!--        android:layout_above="@id/ad_container" />-->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/ad_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"/>-->
+
+<!--</RelativeLayout>-->
