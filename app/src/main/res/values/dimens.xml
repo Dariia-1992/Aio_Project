@@ -8,9 +8,6 @@
     <dimen name="tab_layout_height">48dp</dimen>
     <dimen name="tab_padding">6dp</dimen>
     <dimen name="margin_for_more_button">12dp</dimen>
-    <dimen name="item_width">90dp</dimen>
-    <dimen name="item_height">124dp</dimen>
-    <dimen name="item_height_in_mode">190dp</dimen>
     <dimen name="item_image_width">224dp</dimen>
     <dimen name="download_button_height">58dp</dimen>
     <dimen name="item__image_height">80dp</dimen>
@@ -24,4 +21,13 @@
     <dimen name="vip_icon_height">24dp</dimen>
     <dimen name="tab_container_height">48dp</dimen>
     <dimen name="tab_icon_size">17dp</dimen>
+    <dimen name="tab_content_item_height">275dp</dimen>
+    <dimen name="tab_content_item_margin">12dp</dimen>
+    <dimen name="tab_content_item_image_height">172dp</dimen>
+    <dimen name="tab_content_item_border_width">2dp</dimen>
+    <dimen name="tab_content_item_text_side_margin">12dp</dimen>
+    <dimen name="tab_content_item_text_top_margin">6dp</dimen>
+    <dimen name="tab_content_item_icon_width">27dp</dimen>
+    <dimen name="tab_content_item_icon_height">25dp</dimen>
+    <dimen name="tab_content_item_second_text_margin">8dp</dimen>
 </resources>

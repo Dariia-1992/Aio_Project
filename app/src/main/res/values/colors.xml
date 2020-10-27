@@ -14,4 +14,5 @@
     <color name="progress_color">#00ffc0</color>
     <color name="tab_selected_color">#f4d22b</color>
     <color name="premium_text">#ffce17</color>
+    <color name="tab_content_item_second_text_color">#bcbcbc</color>
 </resources>

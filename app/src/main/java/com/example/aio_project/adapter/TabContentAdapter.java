@@ -3,6 +3,8 @@ package com.example.aio_project.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.model.ModelDTO;
@@ -32,7 +34,7 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tab_content_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -47,9 +49,18 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView title;
+        TextView downloadsCount;
+        TextView viewsCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            image = itemView.findViewById(R.id.image);
+            title = itemView.findViewById(R.id.title);
+            downloadsCount = itemView.findViewById(R.id.downloadsCount);
+            viewsCount = itemView.findViewById(R.id.viewsCount);
         }
     }
 }

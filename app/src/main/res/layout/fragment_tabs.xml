@@ -70,8 +70,7 @@
         android:background="@color/black"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabIndicatorHeight="0dp"
-        />
+        app:tabIndicatorHeight="0dp" />
 
     <View
         android:id="@+id/divider"
