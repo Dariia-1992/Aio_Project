@@ -3,14 +3,11 @@
     <dimen name="logo_icon">32dp</dimen>
     <dimen name="margin_toolbar">12dp</dimen>
     <dimen name="main_margin">12dp</dimen>
-    <dimen name="tab_icon">18dp</dimen>
-    <dimen name="tab_icon_width">58dp</dimen>
-    <dimen name="tab_icon_height">30dp</dimen>
+
     <dimen name="title_space">48dp</dimen>
     <dimen name="tab_layout_height">48dp</dimen>
     <dimen name="tab_padding">6dp</dimen>
     <dimen name="margin_for_more_button">12dp</dimen>
-
     <dimen name="item_width">90dp</dimen>
     <dimen name="item_height">124dp</dimen>
     <dimen name="item_height_in_mode">190dp</dimen>
@@ -25,4 +22,6 @@
     <dimen name="vip_icon_margin">12dp</dimen>
     <dimen name="vip_icon_width">32dp</dimen>
     <dimen name="vip_icon_height">24dp</dimen>
+    <dimen name="tab_container_height">48dp</dimen>
+    <dimen name="tab_icon_size">17dp</dimen>
 </resources>

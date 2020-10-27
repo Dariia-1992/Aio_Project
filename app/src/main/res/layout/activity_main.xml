@@ -21,12 +21,6 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <View-->
-<!--        android:id="@+id/view_color"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="2dp"-->
-<!--        android:layout_below="@id/tabLayout"-->
-<!--        android:background="@color/title_color"/>-->
 <!--    <LinearLayout-->
 <!--        android:id="@+id/search_layout"-->
 <!--        android:layout_width="match_parent"-->
