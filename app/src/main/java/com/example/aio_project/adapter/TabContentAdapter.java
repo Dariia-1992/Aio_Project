@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.utils.TextUtils;
 
 import java.util.List;
 
@@ -40,7 +41,17 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // TODO:
+        ModelDTO item = items.get(position);
+
+        holder.title.setText(item.getTitle());
+        holder.downloadsCount.setText(TextUtils.getRoundedCount(item.getDownloadsCount()));
+        holder.viewsCount.setText(TextUtils.getRoundedCount(item.getViewsCount()));
+        // TODO: icon!
+
+        holder.itemView.setOnClickListener(view -> {
+            if (listener != null)
+                listener.onSelected(item);
+        });
     }
 
     @Override
