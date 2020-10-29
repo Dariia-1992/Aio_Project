@@ -27,6 +27,7 @@ public class TabContentFragment extends Fragment {
     private static final String SERVER_NAME_EXTRA = "server_name_extra";
     private static final String CATEGORY_EXTRA = "category_extra";
 
+    private IMainFragment mainFragment;
     private View view;
     private TabContentAdapter adapter;
 
@@ -35,13 +36,14 @@ public class TabContentFragment extends Fragment {
 
     private final List<ModelDTO> visibleItems = new ArrayList<>();
 
-    public static TabContentFragment createFragment(Category category, String serverName) {
+    public static TabContentFragment createFragment(Category category, String serverName, IMainFragment mainFragment) {
         Bundle bundle = new Bundle();
         bundle.putString(SERVER_NAME_EXTRA, serverName);
         bundle.putInt(CATEGORY_EXTRA, category.ordinal());
 
         TabContentFragment fragment = new TabContentFragment();
         fragment.setArguments(bundle);
+        fragment.setMainFragment(mainFragment);
         return fragment;
     }
 
@@ -84,8 +86,12 @@ public class TabContentFragment extends Fragment {
         return view;
     }
 
+    public void setMainFragment(IMainFragment mainFragment) {
+        this.mainFragment = mainFragment;
+    }
+
     private final TabContentAdapter.OnItemClickListener itemClickListener = item -> {
-        visibleItems.clear();
-        adapter.notifyDataSetChanged();
+        if (mainFragment != null)
+            mainFragment.goToDetails(item);
     };
 }

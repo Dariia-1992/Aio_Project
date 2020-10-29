@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
+import com.example.aio_project.fragment.IMainFragment;
 import com.example.aio_project.fragment.TabContentFragment;
 
 import java.util.ArrayList;
@@ -28,14 +29,14 @@ public class TabsAdapter extends FragmentPagerAdapter {
     private final List<TabInfo> tabInfoList;
     private final List<TabContentFragment> tabFragmentList;
 
-    public TabsAdapter(@NonNull Context context, @NonNull FragmentManager fm, int behavior, List<TabInfo> tabInfoList) {
+    public TabsAdapter(@NonNull Context context, @NonNull FragmentManager fm, int behavior, List<TabInfo> tabInfoList, IMainFragment mainFragment) {
         super(fm, behavior);
         this.context = context;
         this.tabInfoList = tabInfoList;
 
         tabFragmentList = new ArrayList<>();
         for (TabInfo info : tabInfoList) {
-            TabContentFragment fragment = TabContentFragment.createFragment(info.category, info.serverName);
+            TabContentFragment fragment = TabContentFragment.createFragment(info.category, info.serverName, mainFragment);
             tabFragmentList.add(fragment);
         }
     }

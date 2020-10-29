@@ -28,7 +28,13 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.aio_project.fragment.DetailsFragment" />
+        android:name="com.example.aio_project.fragment.DetailsFragment" >
+
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/buyVipFragment"

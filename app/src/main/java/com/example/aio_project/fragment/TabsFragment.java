@@ -9,6 +9,7 @@ import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
 import com.example.aio_project.adapter.TabsAdapter;
 import com.example.aio_project.model.Category;
+import com.example.aio_project.model.ModelDTO;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -16,13 +17,14 @@ import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
  */
 
-public class TabsFragment extends Fragment {
+public class TabsFragment extends Fragment implements IMainFragment {
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -33,6 +35,7 @@ public class TabsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tabs, container, false);
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
+        View vipIcon = view.findViewById(R.id.vipIcon);
 
         // Create list of tabs
         List<TabInfo> tabs = new ArrayList<>();
@@ -43,7 +46,7 @@ public class TabsFragment extends Fragment {
         tabs.add(new TabInfo(getString(R.string.tab_skins), R.drawable.icon_skins, R.drawable.icon_skins_true, Category.SKIN, "mod_skins"));
 
         // Create tabs adapter
-        adapter = new TabsAdapter(requireContext(), getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tabs);
+        adapter = new TabsAdapter(requireContext(), getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tabs, this);
 
         // Connect tabLayout and viewPager
         viewPager.setAdapter(adapter);
@@ -58,8 +61,29 @@ public class TabsFragment extends Fragment {
             }
         });
 
+        vipIcon.setOnClickListener(v -> goToVip());
+
         return view;
     }
+
+    // region IMainFragment
+
+    @Override
+    public void goToDetails(ModelDTO item) {
+        DetailsFragmentArgs args = new DetailsFragmentArgs.Builder(item.getId())
+                .build();
+
+        Navigation.findNavController(view)
+                .navigate(R.id.action_tabs_to_details, args.toBundle());
+    }
+
+    @Override
+    public void goToVip() {
+        Navigation.findNavController(view)
+                .navigate(R.id.action_tabs_to_vip);
+    }
+
+    // endregion
 
     private void updateTabsState(int selectedPosition) {
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
