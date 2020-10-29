@@ -1,74 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/base_image">
 
-    <TextView
-        android:id="@+id/premium_text"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/premium"
-        android:textColor="@color/premium_text"
-        android:gravity="center_horizontal"
-        android:textSize="28sp"
-        android:layout_marginTop="58dp"
-        android:layout_marginBottom="58dp"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/premium_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/premium"
+            android:textColor="@color/premium_text"
+            android:gravity="center_horizontal"
+            android:textSize="28sp"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="58dp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_below="@id/premium_text"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/action_block"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_below="@id/premium_text"
+            android:orientation="horizontal">
 
+            <RelativeLayout
+                android:id="@+id/remove_ads"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/remove_ads_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/stop_ads"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/remove_ads_img"
+                    android:text="@string/remove_ads"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fast_update"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/fast_update_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/update"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/fast_update_img"
+                    android:text="@string/fast_update"
+                    android:layout_centerInParent="true"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/get_premium_button"
+            android:layout_width="240dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/action_block"
+            android:src="@drawable/get_premium"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/pay_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/get_premium_button"
+            android:text="@string/pay_info_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/main_margin"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
         <RelativeLayout
-            android:id="@+id/remove_ads"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:id="@+id/info_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pay_info"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
+            android:background="@drawable/background_pay_info_box">
 
-            <ImageView
-                android:id="@+id/remove_ads_img"
+            <TextView
+                android:id="@+id/pay_info_box_title"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/stop_ads"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="@string/pay_info_box_title"
+                android:layout_centerHorizontal="true" />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/remove_ads_img"
-                android:text="@string/remove_ads"
-                android:textSize="16sp"
-                android:layout_marginTop="12dp"
-                android:layout_centerInParent="true"
-                android:textColor="@color/white"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pay_info_box_title"
+                android:inputType="textMultiLine"
+                android:text="@string/pay_info_box_text"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="12dp"
+                tools:ignore="TextViewEdits" />
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/fast_update"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/fast_update_img"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/update"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/fast_update_img"
-                android:text="@string/fast_update"
-                android:layout_centerInParent="true"
-                android:textSize="16sp"
-                android:layout_marginTop="12dp"
-                android:textColor="@color/white"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
