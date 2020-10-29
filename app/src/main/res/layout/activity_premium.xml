@@ -12,32 +12,33 @@
         <TextView
             android:id="@+id/premium_text"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="@string/premium"
             android:textColor="@color/premium_text"
             android:gravity="center_horizontal"
             android:textSize="28sp"
-            android:layout_marginTop="58dp"
-            android:layout_marginBottom="58dp"/>
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="38dp"/>
 
         <LinearLayout
             android:id="@+id/action_block"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_below="@id/premium_text"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/remove_ads"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/remove_ads_img"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/stop_ads"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,14 +55,13 @@
             <RelativeLayout
                 android:id="@+id/fast_update"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/fast_update_img"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/update"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,13 +77,12 @@
 
         </LinearLayout>
 
-        <ImageView
+        <Button
             android:id="@+id/get_premium_button"
-            android:layout_width="240dp"
-            android:layout_height="100dp"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
             android:layout_below="@id/action_block"
-            android:src="@drawable/get_premium"
-            android:scaleType="fitCenter"
+            android:background="@drawable/get_premium"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:id="@+id/pay_info"
@@ -93,8 +92,9 @@
             android:text="@string/pay_info_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/main_margin"
+            android:layout_marginBottom="32dp"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
         <RelativeLayout
             android:id="@+id/info_box"
             android:layout_width="match_parent"
@@ -102,15 +102,16 @@
             android:layout_below="@id/pay_info"
             android:layout_marginStart="@dimen/main_margin"
             android:layout_marginEnd="@dimen/main_margin"
-            android:layout_marginTop="@dimen/main_margin"
             android:background="@drawable/background_pay_info_box">
 
             <TextView
                 android:id="@+id/pay_info_box_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="22dp"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:text="@string/pay_info_box_title"
                 android:layout_centerHorizontal="true" />
             <TextView
@@ -118,13 +119,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/pay_info_box_title"
                 android:inputType="textMultiLine"
+                android:textColor="@color/pay_info_box_text_color"
                 android:text="@string/pay_info_box_text"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="22dp"
                 tools:ignore="TextViewEdits" />
 
         </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@id/info_box"/>
     </RelativeLayout>
 </ScrollView>

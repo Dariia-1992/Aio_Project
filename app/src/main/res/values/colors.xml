@@ -15,7 +15,7 @@
     <color name="toolbar_text">#f4d22b</color>
     <color name="premium_text">#ffce17</color>
 
-    <color name="pay_info_box_text_color">#ccae79ba</color>
-    <color name="pay_info_box_border_color">#db6cf1</color>
-    <color name="pay_info_box_background_color">#cc650874</color>
+    <color name="pay_info_box_text_color">#ae79ba</color>
+    <color name="pay_info_box_border_color">#ca6ce2</color>
+    <color name="pay_info_box_background_color">#cc530865</color>
 </resources>
