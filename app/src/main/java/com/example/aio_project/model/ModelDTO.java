@@ -22,13 +22,13 @@ public class ModelDTO {
     // region Getters
 
     public String getTitle() { return title; }
-    public String getCategoryId() { return categoryid; }
-    public String getDownloadsCount() { return downloadcount; }
-    public String getViewsCount() { return viewcount; }
+    public String getCategoryid() { return categoryid; }
+    public String getDownloadcount() { return downloadcount; }
+    public String getViewcount() { return viewcount; }
     public String getRating() { return rating; }
     public String getDescription() { return description; }
-    public String getFileUrl() { return fileurl; }
-    public String getIsUpload() { return isupload; }
+    public String getFileurl() { return fileurl; }
+    public String getIsupload() { return isupload; }
     public String getSeed() { return seed; }
 
     // endregion

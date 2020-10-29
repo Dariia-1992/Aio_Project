@@ -44,8 +44,8 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
         ModelDTO item = items.get(position);
 
         holder.title.setText(item.getTitle());
-        holder.downloadsCount.setText(TextUtils.getRoundedCount(item.getDownloadsCount()));
-        holder.viewsCount.setText(TextUtils.getRoundedCount(item.getViewsCount()));
+        holder.downloadsCount.setText(TextUtils.getRoundedCount(item.getDownloadcount()));
+        holder.viewsCount.setText(TextUtils.getRoundedCount(item.getViewcount()));
         // TODO: icon!
 
         holder.itemView.setOnClickListener(view -> {

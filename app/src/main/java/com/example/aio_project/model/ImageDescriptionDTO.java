@@ -11,9 +11,9 @@ public class ImageDescriptionDTO {
 
     public String getField() { return field; }
     public String getFile() { return file; }
-    public String getFileName() { return filename; }
-    public String getEntryType() { return modtype; }
-    public String getEntryId() { return modetypeid; }
+    public String getFilename() { return filename; }
+    public String getModtype() { return modtype; }
+    public String getModetypeid() { return modetypeid; }
 
     // endregion
 }

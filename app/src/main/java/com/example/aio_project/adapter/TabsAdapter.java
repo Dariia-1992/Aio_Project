@@ -35,8 +35,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
 
         tabFragmentList = new ArrayList<>();
         for (TabInfo info : tabInfoList) {
-            TabContentFragment fragment = new TabContentFragment();
-            // TODO: set data of fragment
+            TabContentFragment fragment = TabContentFragment.createFragment(info.serverName);
             tabFragmentList.add(fragment);
         }
     }
