@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aio_project.R;
+import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
 import com.example.aio_project.utils.TextUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,7 +48,11 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
         holder.title.setText(item.getTitle());
         holder.downloadsCount.setText(TextUtils.getRoundedCount(item.getDownloadcount()));
         holder.viewsCount.setText(TextUtils.getRoundedCount(item.getViewcount()));
-        // TODO: icon!
+        holder.image.setImageDrawable(null);
+
+        Picasso.get()
+                .load(DataRepository.getThumbnailUrl(item.getId()))
+                .into(holder.image);
 
         holder.itemView.setOnClickListener(view -> {
             if (listener != null)

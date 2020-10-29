@@ -1,6 +1,7 @@
 package com.example.aio_project.model;
 
 public class ModelDTO {
+    private String id;
 
     // Common
     private String title;
@@ -21,6 +22,7 @@ public class ModelDTO {
 
     // region Getters
 
+    public String getId() { return id; }
     public String getTitle() { return title; }
     public String getCategoryid() { return categoryid; }
     public String getDownloadcount() { return downloadcount; }
@@ -30,6 +32,12 @@ public class ModelDTO {
     public String getFileurl() { return fileurl; }
     public String getIsupload() { return isupload; }
     public String getSeed() { return seed; }
+
+    // endregion
+
+    // region Getters
+
+    public void setId(String id) { this.id = id; }
 
     // endregion
 }

@@ -13,11 +13,19 @@
         android:background="@drawable/tab_content_item_background">
 
         <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_content_item_image_height"
+            android:layout_margin="@dimen/tab_content_item_border_width"
+            android:src="@drawable/picture"
+            android:padding="30dp"
+            android:background="#bababa"/>
+
+        <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_content_item_image_height"
             android:layout_margin="@dimen/tab_content_item_border_width"
-            android:background="#f00"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/title"

@@ -6,6 +6,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.aio_project.model.DataRepository;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);     // TODO: is it necessary?
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DataRepository.loadImages();
     }
 
     @Override

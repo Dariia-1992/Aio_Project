@@ -5,7 +5,7 @@ public class ImageDescriptionDTO {
     private String file;
     private String filename;
     private String modtype;
-    private String modetypeid;
+    private String modtypeid;
 
     // region Getters
 
@@ -13,7 +13,7 @@ public class ImageDescriptionDTO {
     public String getFile() { return file; }
     public String getFilename() { return filename; }
     public String getModtype() { return modtype; }
-    public String getModetypeid() { return modetypeid; }
+    public String getModtypeid() { return modtypeid; }
 
     // endregion
 }
