@@ -4,6 +4,6 @@
     <stroke android:color="@color/pay_info_box_text_color"
         android:width="4dp" />
     <solid android:color="@color/pay_info_box_background_color"/>
-    <corners android:radius="4dp" />
+    <corners android:radius="8dp" />
 
 </shape>
