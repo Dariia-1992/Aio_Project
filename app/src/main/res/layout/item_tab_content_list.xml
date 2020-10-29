@@ -13,6 +13,7 @@
         android:background="@drawable/tab_content_item_background">
 
         <ImageView
+            android:id="@+id/backgroundImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_content_item_image_height"
             android:layout_margin="@dimen/tab_content_item_border_width"
@@ -24,8 +25,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_content_item_image_height"
-            android:layout_margin="@dimen/tab_content_item_border_width"
-            android:scaleType="centerCrop"/>
+            android:layout_margin="@dimen/tab_content_item_border_width"/>
 
         <TextView
             android:id="@+id/title"
