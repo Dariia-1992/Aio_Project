@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import com.example.aio_project.R;
 
+import java.util.Objects;
+
 import androidx.fragment.app.Fragment;
 
 /**
@@ -19,6 +21,9 @@ public class DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        View backButton = view.findViewById(R.id.toolbarIconBack);
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }
