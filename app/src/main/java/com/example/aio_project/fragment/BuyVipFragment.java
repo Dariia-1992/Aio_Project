@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.aio_project.R;
 
@@ -19,6 +20,9 @@ public class BuyVipFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_buy_vip, container, false);
+
+        TextView priceView = view.findViewById(R.id.priceInfo);
+        priceView.setText("USD XXX.00/Week");
 
         return view;
     }

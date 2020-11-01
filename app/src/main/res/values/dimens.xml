@@ -31,4 +31,13 @@
     <dimen name="tab_content_item_icon_height">25dp</dimen>
     <dimen name="tab_content_item_second_text_margin">8dp</dimen>
     <dimen name="sort_container_height">43dp</dimen>
+    <dimen name="vip_premium_title_margin">74dp</dimen>
+    <dimen name="remove_update_block_height">200dp</dimen>
+    <dimen name="remove_update_block_margin">22dp</dimen>
+    <dimen name="vip_actions_size">130dp</dimen>
+    <dimen name="vip_action_text_margin_top">16dp</dimen>
+    <dimen name="vip_action_text_size">18sp</dimen>
+    <dimen name="get_premium_button_width">230dp</dimen>
+    <dimen name="get_premium_button_height">60dp</dimen>
+
 </resources>

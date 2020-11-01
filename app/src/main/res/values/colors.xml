@@ -15,4 +15,10 @@
     <color name="tab_selected_color">#f4d22b</color>
     <color name="premium_text">#ffce17</color>
     <color name="tab_content_item_second_text_color">#bcbcbc</color>
+    <color name="vip_button">#37b047</color>
+
+    <color name="pay_info_box_border_color">#ccdb6cf1</color>
+    <color name="pay_info_box_background_color">#dd4B0457</color>
+    <color name="vip_details_text_color">#ae79ba</color>
+
 </resources>

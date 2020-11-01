@@ -15,10 +15,8 @@
     <string name="details">DETAILS</string>
     <string name="downloading">DOWNLOADING</string>
     <string name="premium">VIP PREMIUM</string>
-    <string name="remove_ads">REMOVE \n
-           ADS</string>
-    <string name="fast_update">FAST \n
-            UPDATE</string>
+    <string name="remove_ads">REMOVE\nADS</string>
+    <string name="fast_update">FAST\nUPDATE</string>
 
     <string name="dialog_title_completed">Download Completed!</string>
     <string name="dialog_text_completed">Are you happy when using our app? Can you spare time a few seconds to rate it?</string>
@@ -33,4 +31,9 @@
     <string name="views_count">140K</string>
     <string name="read_more">READ MORE</string>
     <string name="aio_description">The latest issue no. 293 released on 15 September 2020 is available here. For a specific research, insert the keywords (e.g. International Criminal Court; landmines treaty; school competitions) in the search box here below.</string>
+    <string name="get_premium">GET PREMIUM</string>
+
+    <string name="pay_info_box_title">INFORMATION</string>
+    <string name="pay_info_box_text">- You might find a payment authorization on your payment method up to 24 hours before the renewal date but you\'ll only be charged on the renewal date.\n- You\'ll automatically be charged each renewal period depending on your subscription terms.\n- You can cancel your subscription at any time in the subscription selection on Google Pay. When you cancel your subscription, you\'ll lose access to the subscription at the end of the current billing period.</string>
+
 </resources>
