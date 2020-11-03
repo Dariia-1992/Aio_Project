@@ -18,6 +18,7 @@ import com.example.aio_project.utils.TextUtils;
 import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.transition.TransitionManager;
 
 /**
@@ -50,11 +51,14 @@ public class DetailsFragment extends Fragment {
         if (entry == null)
             return view;
 
+        // Init toolbar
         TextView toolbarTitle = view.findViewById(R.id.toolbarTitle);
-        toolbarTitle.setText(entry.getTitle());
-
         View backButton = view.findViewById(R.id.toolbarIconBack);
+        View vipButton = view.findViewById(R.id.vipIcon);
+
+        toolbarTitle.setText(entry.getTitle());
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        vipButton.setOnClickListener(vipClickListener);
 
         downloadButton = view.findViewById(R.id.downloadButtonContainer);
         installButton = view.findViewById(R.id.installButtonContainer);
@@ -83,6 +87,11 @@ public class DetailsFragment extends Fragment {
         // Click listeners
         readMoreButton.setOnClickListener(readMoreButtonClickListener);
     }
+
+    private final View.OnClickListener vipClickListener = v -> {
+        Navigation.findNavController(view)
+                .navigate(R.id.action_details_to_vip);
+    };
 
     private final View.OnClickListener readMoreButtonClickListener = v -> {
         TransitionManager.beginDelayedTransition((RelativeLayout) view);
