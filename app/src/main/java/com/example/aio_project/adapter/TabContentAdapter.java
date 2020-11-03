@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.aio_project.R;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.TransitionManager;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
@@ -57,11 +55,18 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
         holder.image.setImageDrawable(null);
         holder.image.setScaleType(category == Category.SKIN ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
         holder.image.setPadding(0, imagePadding, 0, 0);
-        holder.backgroundImage.setVisibility(View.VISIBLE);
+
+        holder.backgroundImage.setAlpha(1.0f);
+        holder.image.setAlpha(0.0f);
 
         ImageHelper.loadImageWithoutThumbnail(holder.itemView.getContext(), DataRepository.getThumbnailUrl(item.getId()), holder.image, () -> {
-            //TransitionManager.beginDelayedTransition((RelativeLayout) holder.itemView);
-            holder.backgroundImage.setVisibility(View.INVISIBLE);
+            holder.backgroundImage.animate()
+                    .alpha(0.0f)
+                    .setDuration(400);
+
+            holder.image.animate()
+                    .alpha(1.0f)
+                    .setDuration(400);
         });
 
         holder.itemView.setOnClickListener(view -> {

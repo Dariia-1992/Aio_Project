@@ -49,6 +49,7 @@ public class TabsFragment extends Fragment implements IMainFragment {
         adapter = new TabsAdapter(requireContext(), getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tabs, this);
 
         // Connect tabLayout and viewPager
+        viewPager.setOffscreenPageLimit(tabs.size());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

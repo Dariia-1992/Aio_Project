@@ -38,7 +38,7 @@ public class DataRepository {
     public static void loadDataAsync(Category category, String collection, ILoadSuccess<ModelDTO> successListener, ILoadError errorListener) {
         if (loadedItems.containsKey(collection) && loadedItems.get(collection) != null) {
             Handler mainHandler = new Handler(Looper.getMainLooper());
-            mainHandler.postDelayed(() -> successListener.onSuccess(loadedItems.get(collection)), 500);
+            mainHandler.postDelayed(() -> successListener.onSuccess(loadedItems.get(collection)), 100);
             return;
         }
 
