@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.ImagePagerAdapter;
+import com.example.aio_project.dialogs.DownloadCompleteDialog;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
@@ -273,7 +274,17 @@ public class DetailsFragment extends Fragment {
         updateState(DownloadHelper.DownloadingState.Downloaded);
         downloadingProgress.setProgress(100);
 
-        // showDialogSuccessfully(); // TODO:
+         showDialogSuccessfully();
+    }
+
+    private void showDialogSuccessfully() {
+        if (LocalStorage.isShowRateDialogAgain(requireContext())) {
+            //listener = this::showDialogDownloadNeverComplete;
+            DownloadCompleteDialog dialog = DownloadCompleteDialog.createDialog(/*listener*/);
+            dialog.show(getChildFragmentManager(), DownloadCompleteDialog.class.getSimpleName());
+        } else {
+            //showDialogDownloadNeverComplete();
+        }
     }
 
     private final View.OnClickListener vipClickListener = v -> {
