@@ -108,7 +108,7 @@
             <RelativeLayout
                 android:id="@+id/detailsButtonContainer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detailsButtonHeight"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/divider"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="@dimen/details_main_margin"
@@ -117,7 +117,7 @@
                 <RelativeLayout
                     android:id="@+id/downloadButtonContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/detailsButtonHeight"
                     android:background="@drawable/background_button_download"
                     android:visibility="gone">
 
@@ -152,7 +152,7 @@
                 <RelativeLayout
                     android:id="@+id/installButtonContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/detailsButtonHeight"
                     android:background="@drawable/background_button_install"
                     android:visibility="gone">
 
@@ -185,10 +185,38 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/copySeedContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detailsButtonHeight"
+                    android:background="@drawable/background_button_install"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/copy_seed"
+                            android:textColor="@color/white"
+                            android:layout_centerVertical="true"
+                            android:textSize="18sp"
+                            fontPath="fonts/Roboto-Black.ttf"
+                            android:layout_marginStart="8dp"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                      android:id="@+id/progressBarContainer"
                      android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:background="@drawable/background_button_download">
+                     android:layout_height="@dimen/detailsButtonHeight"
+                     android:background="@drawable/background_button_download"
+                     android:visibility="gone">
 
                      <RelativeLayout
                          android:layout_width="match_parent"

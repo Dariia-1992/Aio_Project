@@ -38,4 +38,7 @@
     <string name="download">DOWNLOAD</string>
     <string name="install">INSTALL</string>
 
+    <string name="rationale_write_permission">We need this permission for download file</string>
+    <string name="copy_seed">COPY SEED</string>
+
 </resources>

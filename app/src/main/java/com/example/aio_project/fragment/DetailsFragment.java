@@ -1,7 +1,15 @@
 package com.example.aio_project.fragment;
 
+import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,40 +17,54 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.ImagePagerAdapter;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.utils.ClipboardHelper;
+import com.example.aio_project.utils.DownloadHelper;
+import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.transition.TransitionManager;
 import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
  */
 
 public class DetailsFragment extends Fragment {
+    private static final int RC_WRITE_PERMISSIONS = 1000;
+    private static final long UPDATE_PERIOD = 250;
+
     private View view;
     private ModelDTO entry;
 
     private View downloadButton;
     private View installButton;
+    private View copySeedButton;
     private View progressContainer;
     private ProgressBar downloadingProgress;
 
     private View detailsContainer;
     private View readMoreButton;
     private TextView detailsText;
+
+    private Handler handler = new Handler();
+    private Runnable handlerRunnable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +90,7 @@ public class DetailsFragment extends Fragment {
 
         downloadButton = view.findViewById(R.id.downloadButtonContainer);
         installButton = view.findViewById(R.id.installButtonContainer);
+        copySeedButton = view.findViewById(R.id.copySeedContainer);
         progressContainer = view.findViewById(R.id.progressBarContainer);
         downloadingProgress = view.findViewById(R.id.progressBar);
         detailsContainer = view.findViewById(R.id.detailsContainer);
@@ -89,7 +112,61 @@ public class DetailsFragment extends Fragment {
 
         initViews();
 
+        // Callbacks
+        copySeedButton.setOnClickListener(v -> {
+            ClipboardHelper.copy(requireContext(), entry.getSeed());
+            Toast.makeText(requireContext(), "Seed was copied to clipboard", Toast.LENGTH_SHORT).show();
+        });
+
+        downloadButton.setOnClickListener(v -> startDownloading());
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (handlerRunnable != null)
+            handler.post(handlerRunnable);
+        else {
+            // Check downloading status
+            DownloadHelper.DownloadingState state = DownloadHelper.getDownloadingStatus(requireContext(), entry);
+            updateState(state);
+
+            // If downloading -- show progressBar
+            if (state == DownloadHelper.DownloadingState.Downloading) {
+                long id = LocalStorage.getIdForModInfo(requireContext(), entry);
+                if (id != 0) {
+                    handlerRunnable = () -> {
+                        updateDownloadProgress(id);
+                        if (handlerRunnable != null)
+                            handler.postDelayed(handlerRunnable, UPDATE_PERIOD);
+                    };
+                    handler.post(handlerRunnable);
+                }
+            }
+        }
+
+        Context context = requireContext();
+        context.registerReceiver(receiver, new IntentFilter((DownloadManager.ACTION_DOWNLOAD_COMPLETE)));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        handler.removeCallbacks(handlerRunnable);
+
+        Context context = requireContext();
+        context.unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     private void initViews() {
@@ -107,6 +184,98 @@ public class DetailsFragment extends Fragment {
         readMoreButton.setOnClickListener(readMoreButtonClickListener);
     }
 
+    private void updateState(DownloadHelper.DownloadingState state) {
+        if (entry.getLocalCategory() == Category.SEED) {
+            downloadButton.setVisibility(View.GONE);
+            installButton.setVisibility(View.GONE);
+            progressContainer.setVisibility(View.GONE);
+            copySeedButton.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        switch (state) {
+            case NotDownloaded: {
+                downloadButton.setVisibility(View.VISIBLE);
+                installButton.setVisibility(View.GONE);
+                progressContainer.setVisibility(View.GONE);
+                copySeedButton.setVisibility(View.GONE);
+                break;
+            }
+            case Downloading: {
+                downloadButton.setVisibility(View.GONE);
+                installButton.setVisibility(View.GONE);
+                progressContainer.setVisibility(View.VISIBLE);
+                copySeedButton.setVisibility(View.GONE);
+                break;
+            }
+            case Downloaded: {
+                downloadButton.setVisibility(View.GONE);
+                installButton.setVisibility(View.VISIBLE);
+                progressContainer.setVisibility(View.GONE);
+                copySeedButton.setVisibility(View.GONE);
+                break;
+            }
+        }
+    }
+
+    @AfterPermissionGranted(RC_WRITE_PERMISSIONS)
+    private void startDownloading() {
+        Context context = getContext();
+        if (context == null)
+            return;
+
+        if (EasyPermissions.hasPermissions(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            long id = DownloadHelper.downloadFile(requireContext(), DownloadHelper.getDownloadUrl(entry));
+            if (id == 0) {
+                Toast.makeText(context, "Download error. Please try later", Toast.LENGTH_LONG).show();
+            } else {
+                LocalStorage.saveDownloadId(context, entry, id);
+                handlerRunnable = () -> {
+                    updateDownloadProgress(id);
+                    if (handlerRunnable != null)
+                        handler.postDelayed(handlerRunnable, UPDATE_PERIOD);
+                };
+                handler.post(handlerRunnable);
+                updateState(DownloadHelper.DownloadingState.Downloading);
+            }
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_write_permission), RC_WRITE_PERMISSIONS, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+    private void updateDownloadProgress(long downloadId) {
+        DownloadManager downloadManager = (DownloadManager) requireContext().getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager.Query query = new DownloadManager.Query();
+        query.setFilterById(downloadId);
+
+        Cursor cursor = downloadManager.query(query);
+        if (cursor.moveToFirst()) {
+            int bytesDownloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+            int bytesTotal = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+
+            if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                handler.removeCallbacks(handlerRunnable);
+                handlerRunnable = null;
+                finishDownloading();
+            }
+            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
+            if (progress >= 100) {
+                handler.removeCallbacks(handlerRunnable);
+                handlerRunnable = null;
+            }
+
+            downloadingProgress.setProgress(progress);
+        }
+        cursor.close();
+    }
+
+    private void finishDownloading() {
+        updateState(DownloadHelper.DownloadingState.Downloaded);
+        downloadingProgress.setProgress(100);
+
+        // showDialogSuccessfully(); // TODO:
+    }
+
     private final View.OnClickListener vipClickListener = v -> {
         Navigation.findNavController(view)
                 .navigate(R.id.action_details_to_vip);
@@ -117,5 +286,35 @@ public class DetailsFragment extends Fragment {
 
         detailsText.setVisibility(View.VISIBLE);
         readMoreButton.setVisibility(View.GONE);
+    };
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (!DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action))
+                return;
+
+            long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
+            long currentPageId = LocalStorage.getIdForModInfo(context, entry);
+
+            // Check if finished file from current page
+            if ((downloadId == currentPageId) && downloadId != 0) {
+                DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.setFilterById(downloadId);
+
+                Cursor cursor = downloadManager.query(query);
+                if (cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                    if (cursor.getInt(columnIndex) == DownloadManager.STATUS_SUCCESSFUL) {
+                        finishDownloading();
+                    }
+                }
+                handler.removeCallbacks(handlerRunnable);
+                handlerRunnable = null;
+                cursor.close();
+            }
+        }
     };
 }
