@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by Alexey Matrosov on 29.10.2020.
  */
@@ -21,6 +23,7 @@ import java.util.Map;
 public class DataRepository {
     private static final String imageDescriptionListName = "mod_fileimage_collection";
     private static final String IMAGE_TYPE_THUMBNAIL = "thumb";
+    private static final String IMAGE_TYPE_SCREENSHOT = "screen";
 
     private static Map<String, List<ModelDTO>> loadedItems = new HashMap<>();
     private static List<ImageDescriptionDTO> imageData = new ArrayList<>();
@@ -93,6 +96,23 @@ public class DataRepository {
         }
 
         return null;
+    }
+
+    @NonNull
+    public static List<String> getItemScreenshots(String entryId) {
+        if (TextUtils.isEmpty(entryId))
+            return new ArrayList<>();
+
+        List<String> urls = new ArrayList<>();
+        for (ImageDescriptionDTO data : imageData) {
+            if (data == null || data.getModtypeid() == null || data.getField() == null)
+                continue;
+
+            if (entryId.equals(data.getModtypeid()) && data.getField().equals(IMAGE_TYPE_SCREENSHOT))
+                urls.add(data.getFile());
+        }
+
+        return urls;
     }
 
     public static ModelDTO findById(String id) {

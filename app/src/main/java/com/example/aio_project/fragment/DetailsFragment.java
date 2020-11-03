@@ -11,15 +11,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.aio_project.R;
+import com.example.aio_project.adapter.ImagePagerAdapter;
+import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
 import com.example.aio_project.utils.TextUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.transition.TransitionManager;
+import androidx.viewpager.widget.ViewPager;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
@@ -67,6 +73,19 @@ public class DetailsFragment extends Fragment {
         detailsContainer = view.findViewById(R.id.detailsContainer);
         readMoreButton = view.findViewById(R.id.detailsReadMore);
         detailsText = view.findViewById(R.id.detailsText);
+
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        CircleIndicator indicator = view.findViewById(R.id.circleIndicator);
+
+        List<String> images = new ArrayList<>();
+        images.add(DataRepository.getThumbnailUrl(entry.getId()));
+
+        if (entry.getLocalCategory() != Category.SKIN )
+            images.addAll(DataRepository.getItemScreenshots(entry.getId()));
+
+        viewPager.setAdapter(new ImagePagerAdapter(getContext(), images));
+        indicator.setViewPager(viewPager);
+        indicator.setVisibility(images.size() == 1 ? View.GONE : View.VISIBLE);
 
         initViews();
 

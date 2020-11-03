@@ -83,19 +83,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="224dp"
-                        android:background="#ff0000"/>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="224dp"/>
 
-                <!--                <me.relex.circleindicator.CircleIndicator-->
-                <!--                    android:id="@+id/circleIndicator"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_alignBottom="@+id/skinImage"-->
-                <!--                    android:layout_centerHorizontal="true"-->
-                <!--                    android:layout_marginBottom="12dp" />-->
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/circleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/viewPager"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="12dp" />
 
             </RelativeLayout>
 
@@ -265,7 +264,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#0f0"
                 android:layout_below="@id/detailsContainer"
                 android:layout_marginTop="12dp"/>
 
