@@ -4,20 +4,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.utils.ImageHelper;
 import com.example.aio_project.utils.TextUtils;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
@@ -58,17 +59,10 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
         holder.image.setPadding(0, imagePadding, 0, 0);
         holder.backgroundImage.setVisibility(View.VISIBLE);
 
-        Picasso.get()
-                .load(DataRepository.getThumbnailUrl(item.getId()))
-                .into(holder.image, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.backgroundImage.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onError(Exception e) { }
-                });
+        ImageHelper.loadImageWithoutThumbnail(holder.itemView.getContext(), DataRepository.getThumbnailUrl(item.getId()), holder.image, () -> {
+            //TransitionManager.beginDelayedTransition((RelativeLayout) holder.itemView);
+            holder.backgroundImage.setVisibility(View.INVISIBLE);
+        });
 
         holder.itemView.setOnClickListener(view -> {
             if (listener != null)

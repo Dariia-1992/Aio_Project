@@ -40,6 +40,10 @@ dependencies {
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:2.0.3'
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
@@ -54,6 +58,4 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-firestore:21.7.1'
     implementation 'com.google.firebase:firebase-analytics:17.6.0'
-
-    implementation 'com.squareup.picasso:picasso:2.71828'
 }
