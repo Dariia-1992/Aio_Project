@@ -83,7 +83,7 @@ public class DetailsFragment extends Fragment {
         if (entry.getLocalCategory() != Category.SKIN )
             images.addAll(DataRepository.getItemScreenshots(entry.getId()));
 
-        viewPager.setAdapter(new ImagePagerAdapter(getContext(), images));
+        viewPager.setAdapter(new ImagePagerAdapter(getContext(), images, entry.getLocalCategory() == Category.SKIN));
         indicator.setViewPager(viewPager);
         indicator.setVisibility(images.size() == 1 ? View.GONE : View.VISIBLE);
 

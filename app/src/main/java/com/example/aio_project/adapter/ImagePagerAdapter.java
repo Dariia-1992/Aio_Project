@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.aio_project.R;
+import com.example.aio_project.model.Category;
+import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.utils.ImageHelper;
 
 import java.util.List;
@@ -17,20 +19,38 @@ import androidx.viewpager.widget.PagerAdapter;
 public class ImagePagerAdapter extends PagerAdapter {
     private Context context;
     private List<String> urls;
+    private boolean isSkin;
 
-    public ImagePagerAdapter(Context context, List<String> urls) {
+    public ImagePagerAdapter(Context context, List<String> urls, boolean isSkin) {
         this.context = context;
         this.urls = urls;
+        this.isSkin = isSkin;
     }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_image_viewpager, null);
+        ImageView backgroundImage = view.findViewById(R.id.backgroundImage);
         ImageView imageView = view.findViewById(R.id.image);
-        ImageHelper.loadImageWithoutThumbnail(context, urls.get(position), imageView, () -> {});
-        /*imageView.setImageDrawable(GradientHelper.generateFundsTopGradient(
-                context,
-                context.getResources(),
-                ids[position]));*/
+
+        int imagePadding = isSkin ? 20 : 0;
+        imageView.setImageDrawable(null);
+        imageView.setScaleType(isSkin ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
+        imageView.setPadding(0, imagePadding, 0, imagePadding);
+
+        backgroundImage.setAlpha(1.0f);
+        imageView.setAlpha(0.0f);
+
+        ImageHelper.loadImageWithoutThumbnail(context, urls.get(position), imageView, () -> {
+            backgroundImage.animate()
+                    .alpha(0.0f)
+                    .setDuration(300);
+
+            imageView.animate()
+                    .alpha(1.0f)
+                    .setDuration(300);
+        });
+
         container.addView(view);
         return view;
     }

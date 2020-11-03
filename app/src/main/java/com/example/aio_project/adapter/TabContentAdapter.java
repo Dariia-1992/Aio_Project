@@ -62,11 +62,11 @@ public class TabContentAdapter extends RecyclerView.Adapter<TabContentAdapter.Vi
         ImageHelper.loadImageWithoutThumbnail(holder.itemView.getContext(), DataRepository.getThumbnailUrl(item.getId()), holder.image, () -> {
             holder.backgroundImage.animate()
                     .alpha(0.0f)
-                    .setDuration(400);
+                    .setDuration(300);
 
             holder.image.animate()
                     .alpha(1.0f)
-                    .setDuration(400);
+                    .setDuration(300);
         });
 
         holder.itemView.setOnClickListener(view -> {
