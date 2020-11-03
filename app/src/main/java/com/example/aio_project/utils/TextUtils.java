@@ -1,5 +1,9 @@
 package com.example.aio_project.utils;
 
+import android.os.Build;
+import android.text.Html;
+import android.widget.TextView;
+
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
@@ -17,6 +21,14 @@ public class TextUtils {
         suffixes.put(1_000_000_000_000L, "T");
         suffixes.put(1_000_000_000_000_000L, "P");
         suffixes.put(1_000_000_000_000_000_000L, "E");
+    }
+
+    public static void setHtmlText(String text, TextView textView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            textView.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            textView.setText(Html.fromHtml(text));
+        }
     }
 
     public static String getRoundedCount(String data) {
