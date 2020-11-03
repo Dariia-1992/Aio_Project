@@ -42,13 +42,15 @@ public class ImagePagerAdapter extends PagerAdapter {
         imageView.setAlpha(0.0f);
 
         ImageHelper.loadImageWithoutThumbnail(context, urls.get(position), imageView, () -> {
-            backgroundImage.animate()
-                    .alpha(0.0f)
-                    .setDuration(300);
-
-            imageView.animate()
-                    .alpha(1.0f)
-                    .setDuration(300);
+            backgroundImage.setAlpha(0.0f);
+            imageView.setAlpha(1.0f);
+//            backgroundImage.animate()
+//                    .alpha(0.0f)
+//                    .setDuration(300);
+//
+//            imageView.animate()
+//                    .alpha(1.0f)
+//                    .setDuration(300);
         });
 
         container.addView(view);
