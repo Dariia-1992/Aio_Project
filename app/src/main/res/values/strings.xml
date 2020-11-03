@@ -35,5 +35,7 @@
 
     <string name="pay_info_box_title">INFORMATION</string>
     <string name="pay_info_box_text">- You might find a payment authorization on your payment method up to 24 hours before the renewal date but you\'ll only be charged on the renewal date.\n- You\'ll automatically be charged each renewal period depending on your subscription terms.\n- You can cancel your subscription at any time in the subscription selection on Google Pay. When you cancel your subscription, you\'ll lose access to the subscription at the end of the current billing period.</string>
+    <string name="download">DOWNLOAD</string>
+    <string name="install">INSTALL</string>
 
 </resources>

@@ -20,5 +20,10 @@
     <color name="pay_info_box_border_color">#ccdb6cf1</color>
     <color name="pay_info_box_background_color">#dd4B0457</color>
     <color name="vip_details_text_color">#ae79ba</color>
+    <color name="download_color">#1684ff</color>
+    <color name="install_color">#1dbf24</color>
+    <color name="progress_background">#153aa1</color>
+    <color name="read_more_color">#5c5c5c</color>
+    <color name="details_text_color">#131313</color>
 
 </resources>

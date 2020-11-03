@@ -75,7 +75,7 @@ public class TabContentFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        DataRepository.loadDataAsync(serverName, items -> {
+        DataRepository.loadDataAsync(category, serverName, items -> {
             visibleItems.clear();
             visibleItems.addAll(items);
             adapter.notifyDataSetChanged();

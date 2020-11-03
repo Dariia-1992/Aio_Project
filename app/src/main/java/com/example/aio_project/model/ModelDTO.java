@@ -20,6 +20,9 @@ public class ModelDTO {
     // Seeds
     private String seed;
 
+    // Local data
+    private Category localCategory;
+
     // region Getters
 
     public String getId() { return id; }
@@ -32,12 +35,13 @@ public class ModelDTO {
     public String getFileurl() { return fileurl; }
     public String getIsupload() { return isupload; }
     public String getSeed() { return seed; }
+    public Category getLocalCategory() { return localCategory; }
 
     // endregion
 
     // region Getters
 
     public void setId(String id) { this.id = id; }
-
+    public void setLocalCategory(Category localCategory) { this.localCategory = localCategory; }
     // endregion
 }

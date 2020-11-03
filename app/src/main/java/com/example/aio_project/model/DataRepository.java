@@ -1,5 +1,7 @@
 package com.example.aio_project.model;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
 import com.example.aio_project.model.interfaces.ILoadError;
@@ -8,7 +10,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Alexey Matrosov on 29.10.2020.
@@ -18,6 +22,7 @@ public class DataRepository {
     private static final String imageDescriptionListName = "mod_fileimage_collection";
     private static final String IMAGE_TYPE_THUMBNAIL = "thumb";
 
+    private static Map<String, List<ModelDTO>> loadedItems = new HashMap<>();
     private static List<ImageDescriptionDTO> imageData = new ArrayList<>();
 
     public static void loadImages() {
@@ -27,7 +32,13 @@ public class DataRepository {
         }, message -> {} );
     }
 
-    public static void loadDataAsync(String collection, ILoadSuccess<ModelDTO> successListener, ILoadError errorListener) {
+    public static void loadDataAsync(Category category, String collection, ILoadSuccess<ModelDTO> successListener, ILoadError errorListener) {
+        if (loadedItems.containsKey(collection) && loadedItems.get(collection) != null) {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            mainHandler.postDelayed(() -> successListener.onSuccess(loadedItems.get(collection)), 500);
+            return;
+        }
+
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection(collection)
                 .get()
@@ -37,9 +48,12 @@ public class DataRepository {
                         ModelDTO item = document.toObject(ModelDTO.class);
                         if (item != null) {
                             item.setId(document.getId());
+                            item.setLocalCategory(category);
                             data.add(item);
                         }
                     }
+
+                    loadedItems.put(collection, data);
 
                     if (successListener != null)
                         successListener.onSuccess(data);
@@ -76,6 +90,23 @@ public class DataRepository {
 
             if (entryId.equals(data.getModtypeid()) && data.getField().equals(IMAGE_TYPE_THUMBNAIL))
                 return data.getFile();
+        }
+
+        return null;
+    }
+
+    public static ModelDTO findById(String id) {
+        for (Map.Entry<String, List<ModelDTO>> entry : loadedItems.entrySet()) {
+            if (entry == null || entry.getValue() == null)
+                continue;
+
+            for (ModelDTO item : entry.getValue()) {
+                if (item == null)
+                    continue;
+
+                if (item.getId().equals(id))
+                    return item;
+            }
         }
 
         return null;
