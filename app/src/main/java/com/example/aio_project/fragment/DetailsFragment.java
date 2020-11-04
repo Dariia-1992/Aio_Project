@@ -6,9 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,9 +23,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aio_project.BuildConfig;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.ImagePagerAdapter;
 import com.example.aio_project.dialogs.DownloadCompleteDialog;
+import com.example.aio_project.dialogs.NotFoundDialog;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
@@ -30,11 +36,13 @@ import com.example.aio_project.utils.DownloadHelper;
 import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.TextUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.transition.TransitionManager;
@@ -120,6 +128,7 @@ public class DetailsFragment extends Fragment {
         });
 
         downloadButton.setOnClickListener(v -> startDownloading());
+        installButton.setOnClickListener(v -> openDownloadedFile());
 
         return view;
     }
@@ -285,6 +294,38 @@ public class DetailsFragment extends Fragment {
         } else {
             //showDialogDownloadNeverComplete();
         }
+    }
+
+    private void openDownloadedFile() {
+        String url = DownloadHelper.getDownloadUrl(entry);
+
+        String fileName = Uri.parse(url).getLastPathSegment();
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+        Uri fileUri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
+        Intent myIntent = new Intent(Intent.ACTION_VIEW);
+        myIntent.setData(fileUri);
+        myIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent j = Intent.createChooser(myIntent, "Choose Minecraft to install file:");
+
+        PackageManager pm = requireActivity().getPackageManager();
+        List<ResolveInfo> activities;
+
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            activities = pm.queryIntentActivities(myIntent, PackageManager.MATCH_ALL);
+        } else {
+            activities = pm.queryIntentActivities(myIntent, 0);
+        }
+
+        if (activities.size() > 0) {
+            startActivity(j);
+        } else {
+            showDialogNotFound();
+        }
+    }
+
+    private void showDialogNotFound() {
+        NotFoundDialog dialog = new NotFoundDialog();
+        dialog.show(getChildFragmentManager(), NotFoundDialog.class.getSimpleName());
     }
 
     private final View.OnClickListener vipClickListener = v -> {
