@@ -42,5 +42,8 @@
     <dimen name="detailsButtonHeight">48dp</dimen>
     <dimen name="details_main_margin">12dp</dimen>
     <dimen name="download_image_size">20dp</dimen>
+    
+    <dimen name="complete_dialog_margin_start_end">20dp</dimen>
+    <dimen name="complete_dialog_margin_top_bottom">16dp</dimen>
 
 </resources>

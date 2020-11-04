@@ -6,10 +6,11 @@
     <color name="title_color">#4ed505</color>
     <color name="white">#ffff</color>
     <color name="black">#000</color>
+    <color name="dialog_title_color">#0e0e0e</color>
 
     <color name="dialog_text">#676767</color>
     <color name="dialog_button_text">#818181</color>
-    <color name="dialog_bg">#f7f7f7</color>
+    <color name="dialog_button_background">#f7f7f7</color>
     <color name="main_background">#f1f1f1</color>
     <color name="progress_color">#00ffc0</color>
     <color name="tab_selected_color">#f4d22b</color>
@@ -25,5 +26,6 @@
     <color name="progress_background">#153aa1</color>
     <color name="read_more_color">#5c5c5c</color>
     <color name="details_text_color">#131313</color>
+    <color name="dialog_sure">#00c63d</color>
 
 </resources>
