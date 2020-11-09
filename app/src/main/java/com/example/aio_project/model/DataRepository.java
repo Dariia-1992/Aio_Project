@@ -24,6 +24,7 @@ public class DataRepository {
     private static final String imageDescriptionListName = "mod_fileimage_collection";
     private static final String IMAGE_TYPE_THUMBNAIL = "thumb";
     private static final String IMAGE_TYPE_SCREENSHOT = "screen";
+    private static final String IMAGE_TYPE_FILE = "file";
 
     private static Map<String, List<ModelDTO>> loadedItems = new HashMap<>();
     private static List<ImageDescriptionDTO> imageData = new ArrayList<>();
@@ -83,20 +84,8 @@ public class DataRepository {
                 });
     }
 
-    public static String getThumbnailUrl(String entryId) {
-        if (TextUtils.isEmpty(entryId))
-            return null;
-
-        for (ImageDescriptionDTO data : imageData) {
-            if (data == null || data.getModtypeid() == null || data.getField() == null)
-                continue;
-
-            if (entryId.equals(data.getModtypeid()) && data.getField().equals(IMAGE_TYPE_THUMBNAIL))
-                return data.getFile();
-        }
-
-        return null;
-    }
+    public static String getThumbnailUrl(String entryId) { return getUrlFromFileImageCollection(entryId, IMAGE_TYPE_THUMBNAIL); }
+    public static String getFileUrl(String entryId) { return getUrlFromFileImageCollection(entryId, IMAGE_TYPE_FILE); }
 
     @NonNull
     public static List<String> getItemScreenshots(String entryId) {
@@ -127,6 +116,21 @@ public class DataRepository {
                 if (item.getId().equals(id))
                     return item;
             }
+        }
+
+        return null;
+    }
+
+    private static String getUrlFromFileImageCollection(String entryId, String type) {
+        if (TextUtils.isEmpty(entryId))
+            return null;
+
+        for (ImageDescriptionDTO data : imageData) {
+            if (data == null || data.getModtypeid() == null || data.getField() == null)
+                continue;
+
+            if (entryId.equals(data.getModtypeid()) && data.getField().equals(type))
+                return data.getFile();
         }
 
         return null;

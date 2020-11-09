@@ -25,8 +25,10 @@ public class DownloadHelper {
         if (entry.getLocalCategory() == Category.SKIN) {
             List<String> screens = DataRepository.getItemScreenshots(entry.getId());
             return screens.isEmpty() ? null : screens.get(0);
+        } else if (TextUtils.isEmpty(entry.getFileurl())) {
+            return DataRepository.getFileUrl(entry.getId());
         } else {
-           return entry.getFileurl();
+            return entry.getFileurl();
         }
     }
 
