@@ -41,5 +41,6 @@
     <string name="rationale_write_permission">We need this permission for download file</string>
     <string name="copy_seed">COPY SEED</string>
     <string name="sure">SURE</string>
+    <string name="sort_by">Sort By</string>
 
 </resources>

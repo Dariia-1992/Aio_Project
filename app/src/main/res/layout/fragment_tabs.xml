@@ -86,6 +86,41 @@
         android:layout_below="@id/divider"
         android:background="@color/black">
 
+        <LinearLayout
+            android:id="@+id/sortButtonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_sort_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center"
+                android:text="@string/sort_by"
+                android:textColor="@color/white"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:textSize="14sp"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:includeFontPadding="false"/>
+
+            <ImageView
+                android:id="@+id/sortIcon"
+                android:layout_width="13dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/sort_down"/>
+
+        </LinearLayout>
+
         <!--  TODO: sort fields  -->
 
     </RelativeLayout>
