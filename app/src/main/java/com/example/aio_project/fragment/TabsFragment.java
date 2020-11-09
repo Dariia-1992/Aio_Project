@@ -9,6 +9,7 @@ import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
 import com.example.aio_project.adapter.TabsAdapter;
 import com.example.aio_project.model.Category;
+import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
 import com.google.android.material.tabs.TabLayout;
 
@@ -71,6 +72,8 @@ public class TabsFragment extends Fragment implements IMainFragment {
 
     @Override
     public void goToDetails(ModelDTO item) {
+        DataRepository.updateViewsCount(item);
+
         DetailsFragmentArgs args = new DetailsFragmentArgs.Builder(item.getId())
                 .build();
 

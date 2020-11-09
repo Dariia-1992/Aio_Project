@@ -124,6 +124,8 @@ public class DetailsFragment extends Fragment {
         // Callbacks
         View copySeedButton = view.findViewById(R.id.copySeedButton);
         copySeedButton.setOnClickListener(v -> {
+            DataRepository.updateDownloadsCount(entry);
+
             ClipboardHelper.copy(requireContext(), entry.getSeed());
             Toast.makeText(requireContext(), "Seed was copied to clipboard", Toast.LENGTH_SHORT).show();
         });
@@ -252,6 +254,8 @@ public class DetailsFragment extends Fragment {
                 };
                 handler.post(handlerRunnable);
                 updateState(DownloadHelper.DownloadingState.Downloading);
+
+                DataRepository.updateDownloadsCount(entry);
             }
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_write_permission), RC_WRITE_PERMISSIONS, Manifest.permission.WRITE_EXTERNAL_STORAGE);

@@ -3,6 +3,7 @@ package com.example.aio_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.example.aio_project.model.interfaces.ILoadError;
 import com.example.aio_project.model.interfaces.ILoadSuccess;
@@ -53,6 +54,7 @@ public class DataRepository {
                         if (item != null) {
                             item.setId(document.getId());
                             item.setLocalCategory(category);
+                            item.setCollectionName(collection);
                             data.add(item);
                         }
                     }
@@ -84,8 +86,19 @@ public class DataRepository {
                 });
     }
 
+    // region Get urls
+
     public static String getThumbnailUrl(String entryId) { return getUrlFromFileImageCollection(entryId, IMAGE_TYPE_THUMBNAIL); }
     public static String getFileUrl(String entryId) { return getUrlFromFileImageCollection(entryId, IMAGE_TYPE_FILE); }
+
+    // endregion
+
+    // region Update values
+
+    public static void updateViewsCount(ModelDTO entry) { updateValueCount(entry, true); }
+    public static void updateDownloadsCount(ModelDTO entry) { updateValueCount(entry, false); }
+
+    // endregion
 
     @NonNull
     public static List<String> getItemScreenshots(String entryId) {
@@ -121,6 +134,8 @@ public class DataRepository {
         return null;
     }
 
+    // region Implementation
+
     private static String getUrlFromFileImageCollection(String entryId, String type) {
         if (TextUtils.isEmpty(entryId))
             return null;
@@ -135,4 +150,27 @@ public class DataRepository {
 
         return null;
     }
+
+    private static void updateValueCount(ModelDTO entry, boolean updateViews) {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection(entry.getCollectionName())
+                .document(entry.getId())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    ModelDTO item = documentSnapshot.toObject(ModelDTO.class);
+                    if (item == null)
+                        return;
+
+                    String currentValueStr = updateViews ? item.getViewcount() : item.getDownloadcount();
+                    long currentValue = com.example.aio_project.utils.TextUtils.parseLong(currentValueStr);
+                    String newValueStr = Long.toString(currentValue + 1);
+
+                    // Update db value
+                    database.collection(entry.getCollectionName())
+                            .document(entry.getId())
+                            .update(updateViews ? "viewcount" : "downloadcount", newValueStr);
+                });
+    }
+
+    // endregion
 }

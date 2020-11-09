@@ -43,6 +43,14 @@ public class TextUtils {
         }
     }
 
+    public static long parseLong(String data) {
+        try {
+            return Long.parseLong(data);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
     private static String format(long value) {
         //Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
         if (value == Long.MIN_VALUE) return format(Long.MIN_VALUE + 1);

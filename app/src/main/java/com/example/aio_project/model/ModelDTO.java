@@ -22,6 +22,7 @@ public class ModelDTO {
 
     // Local data
     private Category localCategory;
+    private String collectionName;
 
     // region Getters
 
@@ -36,6 +37,7 @@ public class ModelDTO {
     public String getIsupload() { return isupload; }
     public String getSeed() { return seed; }
     public Category getLocalCategory() { return localCategory; }
+    public String getCollectionName() { return collectionName; }
 
     // endregion
 
@@ -43,5 +45,7 @@ public class ModelDTO {
 
     public void setId(String id) { this.id = id; }
     public void setLocalCategory(Category localCategory) { this.localCategory = localCategory; }
+    public void setCollectionName(String collectionName) { this.collectionName = collectionName; }
+
     // endregion
 }
