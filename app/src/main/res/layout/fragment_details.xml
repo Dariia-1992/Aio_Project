@@ -187,22 +187,42 @@
                 <RelativeLayout
                     android:id="@+id/copySeedContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detailsButtonHeight"
-                    android:background="@drawable/background_button_install"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true">
+                        android:id="@+id/copySeedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detailsButtonHeight"
+                        android:background="@drawable/background_button_install">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/copy_seed"
                             android:textColor="@color/white"
-                            android:layout_centerVertical="true"
+                            android:layout_centerInParent="true"
                             android:textSize="18sp"
+                            fontPath="fonts/Roboto-Black.ttf"
+                            android:layout_marginStart="8dp"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detailsButtonHeight"
+                        android:background="@drawable/background_seed_info"
+                        android:layout_below="@id/copySeedButton"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:id="@+id/seedInfoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/copy_seed"
+                            android:textColor="@color/details_text_color"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
                             fontPath="fonts/Roboto-Black.ttf"
                             android:layout_marginStart="8dp"
                             tools:ignore="MissingPrefix"/>

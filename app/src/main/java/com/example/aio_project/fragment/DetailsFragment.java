@@ -64,7 +64,7 @@ public class DetailsFragment extends Fragment {
 
     private View downloadButton;
     private View installButton;
-    private View copySeedButton;
+    private View copySeedContainer;
     private View progressContainer;
     private ProgressBar downloadingProgress;
 
@@ -99,7 +99,7 @@ public class DetailsFragment extends Fragment {
 
         downloadButton = view.findViewById(R.id.downloadButtonContainer);
         installButton = view.findViewById(R.id.installButtonContainer);
-        copySeedButton = view.findViewById(R.id.copySeedContainer);
+        copySeedContainer = view.findViewById(R.id.copySeedContainer);
         progressContainer = view.findViewById(R.id.progressBarContainer);
         downloadingProgress = view.findViewById(R.id.progressBar);
         detailsContainer = view.findViewById(R.id.detailsContainer);
@@ -122,6 +122,7 @@ public class DetailsFragment extends Fragment {
         initViews();
 
         // Callbacks
+        View copySeedButton = view.findViewById(R.id.copySeedButton);
         copySeedButton.setOnClickListener(v -> {
             ClipboardHelper.copy(requireContext(), entry.getSeed());
             Toast.makeText(requireContext(), "Seed was copied to clipboard", Toast.LENGTH_SHORT).show();
@@ -180,6 +181,10 @@ public class DetailsFragment extends Fragment {
     }
 
     private void initViews() {
+        TextView seedView = view.findViewById(R.id.seedInfoText);
+        if (entry.getLocalCategory() == Category.SEED && entry.getSeed() != null)
+            seedView.setText(String.format("SEED : %s", entry.getSeed()));
+
         readMoreButton.setVisibility(View.GONE);
         detailsText.setVisibility(View.GONE);
 
@@ -199,7 +204,7 @@ public class DetailsFragment extends Fragment {
             downloadButton.setVisibility(View.GONE);
             installButton.setVisibility(View.GONE);
             progressContainer.setVisibility(View.GONE);
-            copySeedButton.setVisibility(View.VISIBLE);
+            copySeedContainer.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -208,21 +213,21 @@ public class DetailsFragment extends Fragment {
                 downloadButton.setVisibility(View.VISIBLE);
                 installButton.setVisibility(View.GONE);
                 progressContainer.setVisibility(View.GONE);
-                copySeedButton.setVisibility(View.GONE);
+                copySeedContainer.setVisibility(View.GONE);
                 break;
             }
             case Downloading: {
                 downloadButton.setVisibility(View.GONE);
                 installButton.setVisibility(View.GONE);
                 progressContainer.setVisibility(View.VISIBLE);
-                copySeedButton.setVisibility(View.GONE);
+                copySeedContainer.setVisibility(View.GONE);
                 break;
             }
             case Downloaded: {
                 downloadButton.setVisibility(View.GONE);
                 installButton.setVisibility(View.VISIBLE);
                 progressContainer.setVisibility(View.GONE);
-                copySeedButton.setVisibility(View.GONE);
+                copySeedContainer.setVisibility(View.GONE);
                 break;
             }
         }
