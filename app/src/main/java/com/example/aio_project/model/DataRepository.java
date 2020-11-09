@@ -3,7 +3,6 @@ package com.example.aio_project.model;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.example.aio_project.model.interfaces.ILoadError;
 import com.example.aio_project.model.interfaces.ILoadSuccess;
@@ -164,6 +163,13 @@ public class DataRepository {
                     String currentValueStr = updateViews ? item.getViewcount() : item.getDownloadcount();
                     long currentValue = com.example.aio_project.utils.TextUtils.parseLong(currentValueStr);
                     String newValueStr = Long.toString(currentValue + 1);
+
+                    // Update local value
+                    if (updateViews) {
+                        entry.setViewcount(newValueStr);
+                    } else {
+                        entry.setDownloadcount(newValueStr);
+                    }
 
                     // Update db value
                     database.collection(entry.getCollectionName())

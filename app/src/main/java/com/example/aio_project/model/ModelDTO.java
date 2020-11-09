@@ -47,5 +47,7 @@ public class ModelDTO {
     public void setLocalCategory(Category localCategory) { this.localCategory = localCategory; }
     public void setCollectionName(String collectionName) { this.collectionName = collectionName; }
 
+    public void setDownloadcount(String value) { this.downloadcount = value; }
+    public void setViewcount(String value) { this.viewcount = value; }
     // endregion
 }
