@@ -45,5 +45,9 @@
     
     <dimen name="complete_dialog_margin_start_end">20dp</dimen>
     <dimen name="complete_dialog_margin_top_bottom">16dp</dimen>
+    <dimen name="popup_sort_margin">12dp</dimen>
+    <dimen name="popup_sort_margin_top">6dp</dimen>
+    <dimen name="popup_sort_offset_x">40dp</dimen>
+    <dimen name="popup_sort_offset_y">16dp</dimen>
 
 </resources>

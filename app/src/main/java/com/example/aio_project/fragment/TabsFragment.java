@@ -1,9 +1,11 @@
 package com.example.aio_project.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
@@ -16,6 +18,8 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.PopupWindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.Navigation;
@@ -32,11 +36,8 @@ public class TabsFragment extends Fragment implements IMainFragment {
     private TabsAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_tabs, container, false);
-        tabLayout = view.findViewById(R.id.tabLayout);
-        viewPager = view.findViewById(R.id.viewPager);
-        View vipIcon = view.findViewById(R.id.vipIcon);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Create list of tabs
         List<TabInfo> tabs = new ArrayList<>();
@@ -48,9 +49,18 @@ public class TabsFragment extends Fragment implements IMainFragment {
 
         // Create tabs adapter
         adapter = new TabsAdapter(requireContext(), getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, tabs, this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_tabs, container, false);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.viewPager);
+        View vipIcon = view.findViewById(R.id.vipIcon);
+        View sortByButton = view.findViewById(R.id.sortButtonContainer);
 
         // Connect tabLayout and viewPager
-        viewPager.setOffscreenPageLimit(tabs.size());
+        viewPager.setOffscreenPageLimit(adapter.getCount());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -64,6 +74,7 @@ public class TabsFragment extends Fragment implements IMainFragment {
         });
 
         vipIcon.setOnClickListener(v -> goToVip());
+        sortByButton.setOnClickListener(sortByClickListener);
 
         return view;
     }
@@ -97,4 +108,29 @@ public class TabsFragment extends Fragment implements IMainFragment {
             tab.setCustomView(adapter.createTabView(i, i == selectedPosition));
         }
     }
+
+    private void updateSortType(TabContentFragment.SortType type) {
+        TabContentFragment fragment = (TabContentFragment) adapter.getItem(viewPager.getCurrentItem());
+        fragment.changeSortType(type);
+    }
+
+    private final View.OnClickListener sortByClickListener = v -> {
+        View chooserView = LayoutInflater.from(getContext()).inflate(R.layout.popup_sort_by, null);
+        PopupWindow pw = new PopupWindow(chooserView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        View selectionNewest = chooserView.findViewById(R.id.selection_1);
+        View selectionDownloads = chooserView.findViewById(R.id.selection_2);
+        View selectionViews = chooserView.findViewById(R.id.selection_3);
+
+        selectionNewest.setOnClickListener(view1 -> { updateSortType(TabContentFragment.SortType.Newest); pw.dismiss(); });
+        selectionDownloads.setOnClickListener(view1 -> { updateSortType(TabContentFragment.SortType.Downloads); pw.dismiss(); });
+        selectionViews.setOnClickListener(view1 -> { updateSortType(TabContentFragment.SortType.Views); pw.dismiss(); });
+
+        int offsetX = (int) getResources().getDimension(R.dimen.popup_sort_offset_x);
+        int offsetY = (int) getResources().getDimension(R.dimen.popup_sort_offset_y);
+
+        pw.setOutsideTouchable(true);
+        PopupWindowCompat.setOverlapAnchor(pw, true);
+        PopupWindowCompat.showAsDropDown(pw, v, -offsetX, offsetY, Gravity.NO_GRAVITY);
+    };
 }

@@ -10,8 +10,12 @@ import com.example.aio_project.adapter.TabContentAdapter;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.utils.LocalStorage;
+import com.example.aio_project.utils.TextUtils;
+import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -24,6 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 
 public class TabContentFragment extends Fragment {
+    public enum SortType { Newest, Downloads, Views }
+
     private static final String SERVER_NAME_EXTRA = "server_name_extra";
     private static final String CATEGORY_EXTRA = "category_extra";
 
@@ -34,6 +40,7 @@ public class TabContentFragment extends Fragment {
     private Category category;
     private String serverName;
 
+    private SortType sortType;
     private final List<ModelDTO> visibleItems = new ArrayList<>();
 
     public static TabContentFragment createFragment(Category category, String serverName, IMainFragment mainFragment) {
@@ -61,6 +68,8 @@ public class TabContentFragment extends Fragment {
 
             category = Category.values()[categoryIndex];
         }
+
+        sortType = LocalStorage.readSortForCategory(requireContext(), serverName);
     }
 
     @Override
@@ -78,6 +87,9 @@ public class TabContentFragment extends Fragment {
         DataRepository.loadDataAsync(category, serverName, items -> {
             visibleItems.clear();
             visibleItems.addAll(items);
+
+            sortItems();
+
             adapter.notifyDataSetChanged();
         }, message -> {
 
@@ -88,6 +100,35 @@ public class TabContentFragment extends Fragment {
 
     public void setMainFragment(IMainFragment mainFragment) {
         this.mainFragment = mainFragment;
+    }
+
+    public void changeSortType(SortType type) {
+        sortType = type;
+        sortItems();
+        adapter.notifyDataSetChanged();
+
+        LocalStorage.saveSortForCategory(requireContext(), serverName, type);
+    }
+
+    private void sortItems() {
+        Collections.sort(visibleItems, (left, right) -> {
+            switch (sortType) {
+                case Newest: {
+                    return right.getTimestamp().compareTo(left.getTimestamp());
+                }
+                case Downloads: {
+                    long leftValue = TextUtils.parseLong(left.getDownloadcount());
+                    long rightValue = TextUtils.parseLong(right.getDownloadcount());
+                    return Long.compare(rightValue, leftValue);
+                }
+                case Views: {
+                    long leftValue = TextUtils.parseLong(left.getViewcount());
+                    long rightValue = TextUtils.parseLong(right.getViewcount());
+                    return Long.compare(rightValue, leftValue);
+                }
+                default: throw new IllegalStateException("Unknown sort type");
+            }
+        });
     }
 
     private final TabContentAdapter.OnItemClickListener itemClickListener = item -> {

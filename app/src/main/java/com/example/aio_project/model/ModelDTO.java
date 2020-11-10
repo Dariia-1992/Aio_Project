@@ -1,5 +1,7 @@
 package com.example.aio_project.model;
 
+import com.google.firebase.Timestamp;
+
 public class ModelDTO {
     private String id;
 
@@ -9,6 +11,7 @@ public class ModelDTO {
     private String downloadcount;
     private String viewcount;
     private String rating;
+    private Timestamp timestamp;
 
     // Maps, Mods, Seeds, Textures
     private String description;
@@ -32,6 +35,7 @@ public class ModelDTO {
     public String getDownloadcount() { return downloadcount; }
     public String getViewcount() { return viewcount; }
     public String getRating() { return rating; }
+    public Timestamp getTimestamp() { return timestamp; }
     public String getDescription() { return description; }
     public String getFileurl() { return fileurl; }
     public String getIsupload() { return isupload; }
