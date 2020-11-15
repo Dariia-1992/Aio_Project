@@ -1,11 +1,17 @@
 package com.example.aio_project.fragment;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
@@ -17,8 +23,10 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.widget.PopupWindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -58,6 +66,8 @@ public class TabsFragment extends Fragment implements IMainFragment {
         viewPager = view.findViewById(R.id.viewPager);
         View vipIcon = view.findViewById(R.id.vipIcon);
         View sortByButton = view.findViewById(R.id.sortButtonContainer);
+        
+        initSearchView();
 
         // Connect tabLayout and viewPager
         viewPager.setOffscreenPageLimit(adapter.getCount());
@@ -99,6 +109,23 @@ public class TabsFragment extends Fragment implements IMainFragment {
     }
 
     // endregion
+
+    private void initSearchView() {
+        SearchView searchView = view.findViewById(R.id.searchView);
+
+        EditText searchEdit = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEdit.setTextColor(Color.parseColor("#ffffff"));
+        searchEdit.setTypeface(Typeface.createFromAsset(requireContext().getAssets(), "fonts/Roboto-Regular.ttf"));
+
+        ImageView searchButton = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        searchButton.getLayoutParams().width = (int) requireContext().getResources().getDimension(R.dimen.search_button_width);
+        searchButton.requestLayout();
+
+        ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        closeButton.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
+        closeButton.setPadding(0, 10, 0, 10);
+        closeButton.requestLayout();
+    }
 
     private void updateTabsState(int selectedPosition) {
         for (int i = 0; i < tabLayout.getTabCount(); i++) {

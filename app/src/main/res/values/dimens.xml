@@ -49,5 +49,7 @@
     <dimen name="popup_sort_margin_top">6dp</dimen>
     <dimen name="popup_sort_offset_x">40dp</dimen>
     <dimen name="popup_sort_offset_y">16dp</dimen>
+    
+    <dimen name="search_button_width">14dp</dimen>
 
 </resources>
