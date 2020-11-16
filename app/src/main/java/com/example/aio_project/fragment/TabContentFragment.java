@@ -36,11 +36,14 @@ public class TabContentFragment extends Fragment {
     private IMainFragment mainFragment;
     private View view;
     private TabContentAdapter adapter;
+    private View notFoundContainer;
 
+    private String searchStr;
     private Category category;
     private String serverName;
 
     private SortType sortType;
+    private final List<ModelDTO> sourceItems = new ArrayList<>();
     private final List<ModelDTO> visibleItems = new ArrayList<>();
 
     public static TabContentFragment createFragment(Category category, String serverName, IMainFragment mainFragment) {
@@ -75,6 +78,9 @@ public class TabContentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tab_content, container, false);
+        notFoundContainer = view.findViewById(R.id.notFoundLabel);
+
+        notFoundContainer.setVisibility(View.GONE);
 
         // Init adapter
         adapter = new TabContentAdapter(visibleItems, category, itemClickListener);
@@ -85,17 +91,22 @@ public class TabContentFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         DataRepository.loadDataAsync(category, serverName, items -> {
-            visibleItems.clear();
-            visibleItems.addAll(items);
+            sourceItems.clear();
+            sourceItems.addAll(items);
 
-            sortItems();
-
-            adapter.notifyDataSetChanged();
+            updateCurrentItems();
         }, message -> {
 
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        searchStr = mainFragment.getSearchStr();
+        updateCurrentItems();
     }
 
     public void setMainFragment(IMainFragment mainFragment) {
@@ -104,10 +115,33 @@ public class TabContentFragment extends Fragment {
 
     public void changeSortType(SortType type) {
         sortType = type;
-        sortItems();
-        adapter.notifyDataSetChanged();
+        updateCurrentItems();
 
         LocalStorage.saveSortForCategory(requireContext(), serverName, type);
+    }
+
+    public void setSearchText(String text) {
+        searchStr = text;
+        updateCurrentItems();
+    }
+
+    private void updateCurrentItems() {
+        visibleItems.clear();
+
+        // Search
+        for (ModelDTO entry : sourceItems) {
+            if (containsIgnoreCase(entry.getTitle(), searchStr))
+                visibleItems.add(entry);
+        }
+
+        // Sort visible items
+        sortItems();
+
+        // Update UI
+        notFoundContainer.setVisibility(visibleItems.isEmpty() && !android.text.TextUtils.isEmpty(searchStr) ? View.VISIBLE : View.GONE);
+
+        // Update adapter
+        adapter.notifyDataSetChanged();
     }
 
     private void sortItems() {
@@ -129,6 +163,24 @@ public class TabContentFragment extends Fragment {
                 default: throw new IllegalStateException("Unknown sort type");
             }
         });
+    }
+
+    private static boolean containsIgnoreCase(String str, String searchStr) {
+        if (str == null)
+            return false;
+
+        if (searchStr == null)
+            return true;
+
+        final int length = searchStr.length();
+        if (length == 0)
+            return true;
+
+        for (int i = str.length() - length; i >= 0; i--) {
+            if (str.regionMatches(true, i, searchStr, 0, length))
+                return true;
+        }
+        return false;
     }
 
     private final TabContentAdapter.OnItemClickListener itemClickListener = item -> {

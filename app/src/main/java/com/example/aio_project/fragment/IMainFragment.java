@@ -9,4 +9,5 @@ import com.example.aio_project.model.ModelDTO;
 public interface IMainFragment {
     void goToDetails(ModelDTO item);
     void goToVip();
+    String getSearchStr();
 }

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class TabsFragment extends Fragment implements IMainFragment {
         viewPager = view.findViewById(R.id.viewPager);
         View vipIcon = view.findViewById(R.id.vipIcon);
         View sortByButton = view.findViewById(R.id.sortButtonContainer);
-        
+
         initSearchView();
 
         // Connect tabLayout and viewPager
@@ -108,6 +109,12 @@ public class TabsFragment extends Fragment implements IMainFragment {
                 .navigate(R.id.action_tabs_to_vip);
     }
 
+    @Override
+    public String getSearchStr() {
+        SearchView searchView = view.findViewById(R.id.searchView);
+        return searchView.getQuery() == null ? null : searchView.getQuery().toString();
+    }
+
     // endregion
 
     private void initSearchView() {
@@ -125,6 +132,24 @@ public class TabsFragment extends Fragment implements IMainFragment {
         closeButton.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
         closeButton.setPadding(0, 10, 0, 10);
         closeButton.requestLayout();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterInCurrentTab(newText);
+                return false;
+            }
+        });
+    }
+
+    private void filterInCurrentTab(String text) {
+        TabContentFragment fragment = (TabContentFragment) adapter.getItem(viewPager.getCurrentItem());
+        fragment.setSearchText(text);
     }
 
     private void updateTabsState(int selectedPosition) {

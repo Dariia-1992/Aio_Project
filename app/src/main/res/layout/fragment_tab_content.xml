@@ -5,14 +5,32 @@
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent">-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/tab_content_item_margin"
         android:clipToPadding="false"
         tools:listitem="@layout/item_tab_content_list"/>
+
+    <TextView
+        android:id="@+id/notFoundLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/items_not_found"
+        android:paddingBottom="94dp"
+        android:textColor="@color/tab_content_item_second_text_color"
+        android:textSize="16sp"
+        fontPath="fonts/Roboto-Black.ttf"
+        tools:ignore="MissingPrefix"/>
+
+</RelativeLayout>
 
 <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
