@@ -2,6 +2,10 @@ package com.example.aio_project;
 
 import android.app.Application;
 
+import com.example.aio_project.utils.PurchaseManager;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.FirebaseApp;
+
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
@@ -11,19 +15,19 @@ import io.github.inflationx.viewpump.ViewPump;
  */
 
 public class MainApplication extends Application {
+    public PurchaseManager purchaseManager = new PurchaseManager();
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         ViewPump.init(ViewPump.builder()
-                .addInterceptor(new CalligraphyInterceptor(
-                        new CalligraphyConfig.Builder()
-//                                .setDefaultFontPath("fonts/PIXELADE.TTF") // TODO: set default
-//                                .setFontAttrId(R.attr.fontPath)
-                                .build()))
+                .addInterceptor(new CalligraphyInterceptor(new CalligraphyConfig.Builder().build()))
                 .build());
 
-//        MobileAds.initialize(this, initializationStatus -> {});
-//        FirebaseApp.initializeApp(this);
+        purchaseManager.init(this);
+
+        MobileAds.initialize(this, initializationStatus -> {});
+        FirebaseApp.initializeApp(this);
     }
 }

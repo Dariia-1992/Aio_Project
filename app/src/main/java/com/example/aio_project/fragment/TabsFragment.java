@@ -1,10 +1,14 @@
 package com.example.aio_project.fragment;
 
+import android.app.Activity;
+import android.app.Application;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +16,20 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.aio_project.MainApplication;
 import com.example.aio_project.R;
 import com.example.aio_project.TabInfo;
 import com.example.aio_project.adapter.TabsAdapter;
 import com.example.aio_project.model.Category;
 import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
+import com.example.aio_project.utils.PurchaseManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -43,6 +53,8 @@ public class TabsFragment extends Fragment implements IMainFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabsAdapter adapter;
+
+    private AdView adView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +81,7 @@ public class TabsFragment extends Fragment implements IMainFragment {
         View sortByButton = view.findViewById(R.id.sortButtonContainer);
 
         initSearchView();
+        initAdContainer();
 
         // Connect tabLayout and viewPager
         viewPager.setOffscreenPageLimit(adapter.getCount());
@@ -115,6 +128,20 @@ public class TabsFragment extends Fragment implements IMainFragment {
         return searchView.getQuery() == null ? null : searchView.getQuery().toString();
     }
 
+    @Override
+    public void initAdBanner() {
+        PurchaseManager manager = getPurchaseManager();
+        if (manager == null)
+            return;
+
+        if (manager.isProVersion()) {
+            adView.setVisibility(View.GONE);
+        } else {
+            adView.setVisibility(View.VISIBLE);
+            adView.loadAd(new AdRequest.Builder().build());
+        }
+    }
+
     // endregion
 
     private void initSearchView() {
@@ -147,6 +174,15 @@ public class TabsFragment extends Fragment implements IMainFragment {
         });
     }
 
+    private void initAdContainer() {
+        RelativeLayout container = view.findViewById(R.id.adViewContainer);
+        adView = new AdView(requireContext());
+        adView.setAdUnitId(getString(R.string.id_ads_banner));
+
+        container.addView(adView);
+        adView.setAdSize(getAdSize());
+    }
+
     private void filterInCurrentTab(String text) {
         TabContentFragment fragment = (TabContentFragment) adapter.getItem(viewPager.getCurrentItem());
         fragment.setSearchText(text);
@@ -165,6 +201,36 @@ public class TabsFragment extends Fragment implements IMainFragment {
         TabContentFragment fragment = (TabContentFragment) adapter.getItem(viewPager.getCurrentItem());
         fragment.changeSortType(type);
     }
+
+    // region Ad helpers
+
+    private PurchaseManager getPurchaseManager() {
+        Activity activity = getActivity();
+        if (activity == null)
+            return null;
+
+        Application application = activity.getApplication();
+        if (application instanceof MainApplication) {
+            return ((MainApplication) application).purchaseManager;
+        }
+
+        return null;
+    }
+
+    private AdSize getAdSize() {
+        Display display = requireActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
+    }
+
+    // endregion
 
     private final View.OnClickListener sortByClickListener = v -> {
         View chooserView = LayoutInflater.from(getContext()).inflate(R.layout.popup_sort_by, null);

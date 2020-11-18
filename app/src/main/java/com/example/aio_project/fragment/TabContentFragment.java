@@ -12,6 +12,8 @@ import com.example.aio_project.model.DataRepository;
 import com.example.aio_project.model.ModelDTO;
 import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.TextUtils;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
@@ -107,6 +109,7 @@ public class TabContentFragment extends Fragment {
         super.onResume();
         searchStr = mainFragment.getSearchStr();
         updateCurrentItems();
+        mainFragment.initAdBanner();
     }
 
     public void setMainFragment(IMainFragment mainFragment) {

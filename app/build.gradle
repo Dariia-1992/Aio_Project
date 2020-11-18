@@ -13,14 +13,30 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField 'int', "SHOWS_WITHOUT_AD_COUNT", "2"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String',  "showedCategory", "\"Furniture Mods\""
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+
+            resValue "string", "id_ads_app", "ca-app-pub-3940256099942544~6641715264"
+            resValue "string", "id_ads_banner", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "id_ads_native", "ca-app-pub-3940256099942544/2247696110"
+            resValue "string", "id_ads_interstitial", "ca-app-pub-3940256099942544/1033173712"
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            resValue "string", "id_ads_app", "ca-app-pub-3940256099942544~6641715264"
+            resValue "string", "id_ads_banner", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "id_ads_native", "ca-app-pub-3940256099942544/2247696110"
+            resValue "string", "id_ads_interstitial", "ca-app-pub-3940256099942544/1033173712"
         }
     }
     compileOptions {
@@ -49,6 +65,12 @@ dependencies {
 
     // Easy permissions
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    // Billing
+    implementation 'com.android.billingclient:billing:3.0.1'
+
+    // Admob
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'

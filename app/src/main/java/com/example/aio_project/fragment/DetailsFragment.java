@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aio_project.BuildConfig;
+import com.example.aio_project.MainActivity;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.ImagePagerAdapter;
 import com.example.aio_project.dialogs.DownloadCompleteDialog;
@@ -35,6 +36,9 @@ import com.example.aio_project.utils.ClipboardHelper;
 import com.example.aio_project.utils.DownloadHelper;
 import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.TextUtils;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -120,6 +124,15 @@ public class DetailsFragment extends Fragment {
         indicator.setVisibility(images.size() == 1 ? View.GONE : View.VISIBLE);
 
         initViews();
+        initAd();
+
+        // Show interstitial add
+        int showsWithoutAdCount = LocalStorage.getOpensWithoutAd(requireContext());
+        if (showsWithoutAdCount >= BuildConfig.SHOWS_WITHOUT_AD_COUNT || showsWithoutAdCount < 0) {
+            if (getActivity() instanceof MainActivity)
+                ((MainActivity) getActivity()).showInterstitialAd();
+        } else
+            LocalStorage.setOpensWithoutAd(requireContext(), showsWithoutAdCount + 1);
 
         // Callbacks
         View copySeedButton = view.findViewById(R.id.copySeedButton);
@@ -130,7 +143,12 @@ public class DetailsFragment extends Fragment {
             Toast.makeText(requireContext(), "Seed was copied to clipboard", Toast.LENGTH_SHORT).show();
         });
 
-        downloadButton.setOnClickListener(v -> startDownloading());
+        downloadButton.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity)
+                ((MainActivity) getActivity()).showInterstitialAd();
+
+            startDownloading();
+        });
         installButton.setOnClickListener(v -> openDownloadedFile());
 
         return view;
@@ -199,6 +217,19 @@ public class DetailsFragment extends Fragment {
 
         // Click listeners
         readMoreButton.setOnClickListener(readMoreButtonClickListener);
+    }
+
+    private void initAd() {
+        AdLoader adLoader = new AdLoader.Builder(requireContext(), getString(R.string.id_ads_native))
+                .forUnifiedNativeAd(unifiedNativeAd -> {
+                    if (isDetached()) {
+                        unifiedNativeAd.destroy();
+                        return;
+                    }
+
+                }).build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
     }
 
     private void updateState(DownloadHelper.DownloadingState state) {

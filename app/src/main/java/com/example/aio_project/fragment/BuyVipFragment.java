@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.aio_project.MainActivity;
 import com.example.aio_project.R;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,13 @@ public class BuyVipFragment extends Fragment {
 
         TextView priceView = view.findViewById(R.id.priceInfo);
         priceView.setText("USD XXX.00/Week");
+
+        View buyVip = view.findViewById(R.id.vipButtonGet);
+        buyVip.setOnClickListener(view -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).buyVip();
+            }
+        });
 
         return view;
     }

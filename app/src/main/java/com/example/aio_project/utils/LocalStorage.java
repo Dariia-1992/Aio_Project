@@ -13,6 +13,7 @@ import com.example.aio_project.model.ModelDTO;
 public class LocalStorage {
     private static final String PREFERENCES_FILE = "preferences_file";
     private static final String KEY_DONT_SHOW_AGAIN = "dont_show_again";
+    private static final String KEY_OPENS_WITHOUT_ADD = "opens_without_ad";
 
     public static long getIdForModInfo(Context context, ModelDTO entry) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
@@ -56,5 +57,18 @@ public class LocalStorage {
             index = TabContentFragment.SortType.Newest.ordinal();
 
         return TabContentFragment.SortType.values()[index];
+    }
+
+    public static void setOpensWithoutAd(Context context, int count) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt(KEY_OPENS_WITHOUT_ADD, count);
+        editor.apply();
+    }
+
+    public static int getOpensWithoutAd(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_OPENS_WITHOUT_ADD, 0);
     }
 }
