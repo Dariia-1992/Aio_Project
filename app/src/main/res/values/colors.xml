@@ -27,5 +27,7 @@
     <color name="read_more_color">#5c5c5c</color>
     <color name="details_text_color">#131313</color>
     <color name="dialog_sure">#00c63d</color>
+    <color name="screen_background">#eeeeee</color>
+    <color name="ad_install">#47b749</color>
 
 </resources>

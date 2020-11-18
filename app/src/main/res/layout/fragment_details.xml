@@ -309,11 +309,14 @@
 
             </RelativeLayout>
 
-            <View
+            <com.google.android.ads.nativetemplates.TemplateView
+                android:id="@+id/my_template"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/detailsContainer"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
+                app:gnt_template_type="@layout/gnt_medium_template_view" />
 
         </RelativeLayout>
 

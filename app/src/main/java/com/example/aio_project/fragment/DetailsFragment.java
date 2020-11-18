@@ -1,6 +1,8 @@
 package com.example.aio_project.fragment;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Application;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.aio_project.BuildConfig;
 import com.example.aio_project.MainActivity;
+import com.example.aio_project.MainApplication;
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.ImagePagerAdapter;
 import com.example.aio_project.dialogs.DownloadCompleteDialog;
@@ -35,7 +39,10 @@ import com.example.aio_project.model.ModelDTO;
 import com.example.aio_project.utils.ClipboardHelper;
 import com.example.aio_project.utils.DownloadHelper;
 import com.example.aio_project.utils.LocalStorage;
+import com.example.aio_project.utils.PurchaseManager;
 import com.example.aio_project.utils.TextUtils;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -220,12 +227,26 @@ public class DetailsFragment extends Fragment {
     }
 
     private void initAd() {
+        PurchaseManager manager = getPurchaseManager();
+        if (manager == null || manager.isProVersion())
+            return;
+
         AdLoader adLoader = new AdLoader.Builder(requireContext(), getString(R.string.id_ads_native))
                 .forUnifiedNativeAd(unifiedNativeAd -> {
                     if (isDetached()) {
                         unifiedNativeAd.destroy();
                         return;
                     }
+
+                    NativeTemplateStyle styles = new NativeTemplateStyle.Builder()
+                            .withMainBackgroundColor(new ColorDrawable(getResources().getColor(R.color.screen_background)))
+                            .withCallToActionBackgroundColor(new ColorDrawable(getResources().getColor(R.color.ad_install)))
+                            .build();
+
+                    TemplateView template = view.findViewById(R.id.my_template);
+                    template.setStyles(styles);
+                    template.setNativeAd(unifiedNativeAd);
+                    template.setVisibility(View.VISIBLE);
 
                 }).build();
 
@@ -366,6 +387,19 @@ public class DetailsFragment extends Fragment {
     private void showDialogNotFound() {
         NotFoundDialog dialog = new NotFoundDialog();
         dialog.show(getChildFragmentManager(), NotFoundDialog.class.getSimpleName());
+    }
+
+    private PurchaseManager getPurchaseManager() {
+        Activity activity = getActivity();
+        if (activity == null)
+            return null;
+
+        Application application = activity.getApplication();
+        if (application instanceof MainApplication) {
+            return ((MainApplication) application).purchaseManager;
+        }
+
+        return null;
     }
 
     private final View.OnClickListener vipClickListener = v -> {
