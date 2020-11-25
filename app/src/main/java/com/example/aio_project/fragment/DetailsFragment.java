@@ -41,6 +41,8 @@ import com.example.aio_project.utils.DownloadHelper;
 import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.PurchaseManager;
 import com.example.aio_project.utils.TextUtils;
+import com.faltenreich.skeletonlayout.Skeleton;
+import com.faltenreich.skeletonlayout.SkeletonLayoutUtils;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -83,6 +85,10 @@ public class DetailsFragment extends Fragment {
     private View readMoreButton;
     private TextView detailsText;
 
+    // Native Ad
+    private TemplateView adContainer;
+    private Skeleton skeleton;
+
     private Handler handler = new Handler();
     private Runnable handlerRunnable;
 
@@ -116,6 +122,7 @@ public class DetailsFragment extends Fragment {
         detailsContainer = view.findViewById(R.id.detailsContainer);
         readMoreButton = view.findViewById(R.id.detailsReadMore);
         detailsText = view.findViewById(R.id.detailsText);
+        adContainer = view.findViewById(R.id.my_template);
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         CircleIndicator indicator = view.findViewById(R.id.circleIndicator);
@@ -231,6 +238,10 @@ public class DetailsFragment extends Fragment {
         if (manager == null || manager.isProVersion())
             return;
 
+        adContainer.setVisibility(View.VISIBLE);
+        skeleton = SkeletonLayoutUtils.createSkeleton(adContainer);
+        skeleton.showSkeleton();
+
         AdLoader adLoader = new AdLoader.Builder(requireContext(), getString(R.string.id_ads_native))
                 .forUnifiedNativeAd(unifiedNativeAd -> {
                     if (isDetached()) {
@@ -243,10 +254,9 @@ public class DetailsFragment extends Fragment {
                             .withCallToActionBackgroundColor(new ColorDrawable(getResources().getColor(R.color.ad_install)))
                             .build();
 
-                    TemplateView template = view.findViewById(R.id.my_template);
-                    template.setStyles(styles);
-                    template.setNativeAd(unifiedNativeAd);
-                    template.setVisibility(View.VISIBLE);
+                    skeleton.showOriginal();
+                    adContainer.setStyles(styles);
+                    adContainer.setNativeAd(unifiedNativeAd);
 
                 }).build();
 
