@@ -702,6 +702,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable gnt_action_button
 drawable gnt_outline_shape
 drawable gnt_rounded_corners_shape
 drawable notification_action_background
@@ -770,7 +771,6 @@ id action_mode_close_button
 id action_text
 id actions
 id activity_chooser_view_content
-id ad_notification_view
 id add
 id alertTitle
 id async
@@ -802,7 +802,6 @@ id expanded_menu
 id forever
 id gone
 id group_divider
-id headline
 id home
 id icon
 id icon_group
@@ -835,11 +834,9 @@ id primary
 id progress_circular
 id progress_horizontal
 id radio
-id rating_bar
 id right
 id right_icon
 id right_side
-id row_two
 id screen
 id scrollIndicatorDown
 id scrollIndicatorUp
@@ -854,7 +851,6 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id secondary
 id select_dialog_listview
 id shortcut
 id spacer
@@ -936,7 +932,6 @@ layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
 layout gnt_medium_template_view
-layout gnt_small_template_view
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big

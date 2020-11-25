@@ -239,7 +239,7 @@ public class DetailsFragment extends Fragment {
             return;
 
         adContainer.setVisibility(View.VISIBLE);
-        skeleton = SkeletonLayoutUtils.createSkeleton(adContainer);
+        skeleton = view.findViewById(R.id.skeletonLayout);
         skeleton.showSkeleton();
 
         AdLoader adLoader = new AdLoader.Builder(requireContext(), getString(R.string.id_ads_native))
@@ -249,13 +249,8 @@ public class DetailsFragment extends Fragment {
                         return;
                     }
 
-                    NativeTemplateStyle styles = new NativeTemplateStyle.Builder()
-                            .withMainBackgroundColor(new ColorDrawable(getResources().getColor(R.color.screen_background)))
-                            .withCallToActionBackgroundColor(new ColorDrawable(getResources().getColor(R.color.ad_install)))
-                            .build();
-
                     skeleton.showOriginal();
-                    adContainer.setStyles(styles);
+                    adContainer.setStyles(new NativeTemplateStyle.Builder().build());
                     adContainer.setNativeAd(unifiedNativeAd);
 
                 }).build();

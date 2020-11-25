@@ -28,22 +28,17 @@ dimen gnt_small_cta_button_height
 dimen gnt_text_row_weight
 dimen gnt_text_size_large
 dimen gnt_text_size_small
+drawable gnt_action_button
 drawable gnt_outline_shape
 drawable gnt_rounded_corners_shape
-id ad_notification_view
 id background
 id body
 id content
 id cta
-id headline
 id icon
 id media_view
 id middle
 id native_ad_view
 id primary
-id rating_bar
-id row_two
-id secondary
 layout gnt_medium_template_view
-layout gnt_small_template_view
 styleable TemplateView gnt_template_type

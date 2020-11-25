@@ -42,8 +42,6 @@ public class TemplateView extends FrameLayout {
   private UnifiedNativeAdView nativeAdView;
 
   private TextView primaryView;
-  private TextView secondaryView;
-  private RatingBar ratingBar;
   private TextView tertiaryView;
   private ImageView iconView;
   private MediaView mediaView;
@@ -89,9 +87,6 @@ public class TemplateView extends FrameLayout {
       if (primaryView != null) {
         primaryView.setBackground(mainBackground);
       }
-      if (secondaryView != null) {
-        secondaryView.setBackground(mainBackground);
-      }
       if (tertiaryView != null) {
         tertiaryView.setBackground(mainBackground);
       }
@@ -100,11 +95,6 @@ public class TemplateView extends FrameLayout {
     Typeface primary = styles.getPrimaryTextTypeface();
     if (primary != null && primaryView != null) {
       primaryView.setTypeface(primary);
-    }
-
-    Typeface secondary = styles.getSecondaryTextTypeface();
-    if (secondary != null && secondaryView != null) {
-      secondaryView.setTypeface(secondary);
     }
 
     Typeface tertiary = styles.getTertiaryTextTypeface();
@@ -120,11 +110,6 @@ public class TemplateView extends FrameLayout {
     int primaryTypefaceColor = styles.getPrimaryTextTypefaceColor();
     if (primaryTypefaceColor > 0 && primaryView != null) {
       primaryView.setTextColor(primaryTypefaceColor);
-    }
-
-    int secondaryTypefaceColor = styles.getSecondaryTextTypefaceColor();
-    if (secondaryTypefaceColor > 0 && secondaryView != null) {
-      secondaryView.setTextColor(secondaryTypefaceColor);
     }
 
     int tertiaryTypefaceColor = styles.getTertiaryTextTypefaceColor();
@@ -147,11 +132,6 @@ public class TemplateView extends FrameLayout {
       primaryView.setTextSize(primaryTextSize);
     }
 
-    float secondaryTextSize = styles.getSecondaryTextSize();
-    if (secondaryTextSize > 0 && secondaryView != null) {
-      secondaryView.setTextSize(secondaryTextSize);
-    }
-
     float tertiaryTextSize = styles.getTertiaryTextSize();
     if (tertiaryTextSize > 0 && tertiaryView != null) {
       tertiaryView.setTextSize(tertiaryTextSize);
@@ -165,11 +145,6 @@ public class TemplateView extends FrameLayout {
     Drawable primaryBackground = styles.getPrimaryTextBackgroundColor();
     if (primaryBackground != null && primaryView != null) {
       primaryView.setBackground(primaryBackground);
-    }
-
-    Drawable secondaryBackground = styles.getSecondaryTextBackgroundColor();
-    if (secondaryBackground != null && secondaryView != null) {
-      secondaryView.setBackground(secondaryBackground);
     }
 
     Drawable tertiaryBackground = styles.getTertiaryTextBackgroundColor();
@@ -203,31 +178,9 @@ public class TemplateView extends FrameLayout {
     nativeAdView.setCallToActionView(callToActionView);
     nativeAdView.setHeadlineView(primaryView);
     nativeAdView.setMediaView(mediaView);
-    secondaryView.setVisibility(VISIBLE);
-    if (adHasOnlyStore(nativeAd)) {
-      nativeAdView.setStoreView(secondaryView);
-      secondaryText = store;
-    } else if (!TextUtils.isEmpty(advertiser)) {
-      nativeAdView.setAdvertiserView(secondaryView);
-      secondaryText = advertiser;
-    } else {
-      secondaryText = "";
-    }
 
     primaryView.setText(headline);
     callToActionView.setText(cta);
-
-    //  Set the secondary view to be the star rating if available.
-    if (starRating != null && starRating > 0) {
-      secondaryView.setVisibility(GONE);
-      ratingBar.setVisibility(VISIBLE);
-      ratingBar.setMax(5);
-      nativeAdView.setStarRatingView(ratingBar);
-    } else {
-      secondaryView.setText(secondaryText);
-      secondaryView.setVisibility(VISIBLE);
-      ratingBar.setVisibility(GONE);
-    }
 
     if (icon != null) {
       iconView.setVisibility(VISIBLE);
@@ -253,15 +206,6 @@ public class TemplateView extends FrameLayout {
     nativeAd.destroy();
   }
 
-  public String getTemplateTypeName() {
-    if (templateType == R.layout.gnt_medium_template_view) {
-      return MEDIUM_TEMPLATE;
-    } else if (templateType == R.layout.gnt_small_template_view) {
-      return SMALL_TEMPLATE;
-    }
-    return "";
-  }
-
   private void initView(Context context, AttributeSet attributeSet) {
 
     TypedArray attributes =
@@ -284,11 +228,7 @@ public class TemplateView extends FrameLayout {
     super.onFinishInflate();
     nativeAdView = (UnifiedNativeAdView) findViewById(R.id.native_ad_view);
     primaryView = (TextView) findViewById(R.id.primary);
-    secondaryView = (TextView) findViewById(R.id.secondary);
     tertiaryView = (TextView) findViewById(R.id.body);
-
-    ratingBar = (RatingBar) findViewById(R.id.rating_bar);
-    ratingBar.setEnabled(false);
 
     callToActionView = (Button) findViewById(R.id.cta);
     iconView = (ImageView) findViewById(R.id.icon);
