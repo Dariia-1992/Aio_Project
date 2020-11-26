@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.aio_project.R;
 import com.example.aio_project.adapter.TabContentAdapter;
@@ -24,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by Alexey Matrosov on 27.10.2020.
@@ -37,6 +39,7 @@ public class TabContentFragment extends Fragment {
 
     private IMainFragment mainFragment;
     private View view;
+    private SwipeRefreshLayout refreshLayout;
     private TabContentAdapter adapter;
     private View notFoundContainer;
 
@@ -84,6 +87,10 @@ public class TabContentFragment extends Fragment {
 
         notFoundContainer.setVisibility(View.GONE);
 
+        // Init refresh layout
+        refreshLayout = view.findViewById(R.id.swipeLayout);
+        refreshLayout.setOnRefreshListener(this::refreshItems);
+
         // Init adapter
         adapter = new TabContentAdapter(visibleItems, category, itemClickListener);
 
@@ -92,14 +99,7 @@ public class TabContentFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        DataRepository.loadDataAsync(category, serverName, items -> {
-            sourceItems.clear();
-            sourceItems.addAll(items);
-
-            updateCurrentItems();
-        }, message -> {
-
-        });
+        refreshItems();
 
         return view;
     }
@@ -110,6 +110,20 @@ public class TabContentFragment extends Fragment {
         searchStr = mainFragment.getSearchStr();
         updateCurrentItems();
         mainFragment.initAdBanner();
+    }
+
+    private void refreshItems() {
+        refreshLayout.setRefreshing(true);
+        DataRepository.loadDataAsync(category, serverName, items -> {
+            refreshLayout.setRefreshing(false);
+            sourceItems.clear();
+            sourceItems.addAll(items);
+
+            updateCurrentItems();
+        }, message -> {
+            refreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        });
     }
 
     public void setMainFragment(IMainFragment mainFragment) {

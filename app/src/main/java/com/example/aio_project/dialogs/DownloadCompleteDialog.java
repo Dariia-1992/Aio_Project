@@ -10,6 +10,10 @@ import android.view.View;
 import com.example.aio_project.BuildConfig;
 import com.example.aio_project.R;
 import com.example.aio_project.utils.LocalStorage;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,14 +42,19 @@ public class DownloadCompleteDialog extends DialogFragment {
 
         view = getLayoutInflater().inflate(R.layout.dialog_download_complete, null);
         view.findViewById(R.id.button_Ok).setOnClickListener(v -> {
-            dismiss();
-            LocalStorage.setNeverShowRateDialogAgain(requireContext());
-            final String appPackageName = BuildConfig.APPLICATION_ID;
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-            } catch (android.content.ActivityNotFoundException e) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-            }});
+            ReviewManager manager = ReviewManagerFactory.create(requireContext());
+            Task<ReviewInfo> request = manager.requestReviewFlow();
+            request.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Task<Void> flow = manager.launchReviewFlow(requireActivity(), task.getResult());
+                    flow.addOnCompleteListener(task1 -> { });
+                } else {
+                    openStorePage();
+                }
+
+                dismiss();
+            });
+        });
 
         view.findViewById(R.id.never).setOnClickListener(v -> {
             LocalStorage.setNeverShowRateDialogAgain(requireContext());
@@ -69,5 +78,15 @@ public class DownloadCompleteDialog extends DialogFragment {
                 .setView(view);
 
         return builder.create();
+    }
+
+    private void openStorePage() {
+        LocalStorage.setNeverShowRateDialogAgain(requireContext());
+        final String appPackageName = BuildConfig.APPLICATION_ID;
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
     }
 }
