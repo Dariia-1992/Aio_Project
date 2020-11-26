@@ -100,6 +100,9 @@ public class TabsFragment extends Fragment implements IMainFragment {
         vipIcon.setOnClickListener(v -> goToVip());
         sortByButton.setOnClickListener(sortByClickListener);
 
+        PurchaseManager manager = getPurchaseManager();
+        vipIcon.setVisibility(manager == null || manager.isProVersion() ? View.GONE : View.VISIBLE);
+
         return view;
     }
 

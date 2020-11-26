@@ -2,6 +2,7 @@ package com.example.aio_project.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -28,15 +29,18 @@ import androidx.annotation.Nullable;
  */
 
 public class PurchaseManager implements PurchasesUpdatedListener {
-    private static final String proSkuId = "sku_sub_pro_version"; // TODO: change to real
+    private static final String prefsFile = "prefs_file";
+    private static final String keyWasBought = "key_wa_bought";
+    private static final String proSkuId = "sku_sub_pro_version";
 
+    private Context context;
     private BillingClient client;
     private final Map<String, SkuDetails> skuDetailsMap = new HashMap<>();
 
     private boolean isProBought;
 
-    public void init(Context context/*, Action2 onProBought*/) {
-        //onBuyEvent = onProBought;
+    public void init(Context context) {
+        this.context = context;
 
         client = BillingClient
                 .newBuilder(context)
@@ -60,6 +64,10 @@ public class PurchaseManager implements PurchasesUpdatedListener {
             @Override
             public void onBillingServiceDisconnected() { }
         });
+
+        // Read from local storage
+        SharedPreferences preferences = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
+        isProBought = preferences.getBoolean(keyWasBought, false);
     }
 
     public void update() {
@@ -103,9 +111,15 @@ public class PurchaseManager implements PurchasesUpdatedListener {
         return result.getPurchasesList();
     }
 
-    private void payProComplete() {
-        boolean wasBought = isProBought;
-        isProBought = true;
+    private void payProComplete(boolean wasBought) {
+        isProBought = wasBought;
+
+        // Save to local storage
+        SharedPreferences preferences = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(keyWasBought, wasBought);
+        editor.apply();
 
         // Send event to main manager
         /*if (!wasBought && onBuyEvent != null)
@@ -142,9 +156,11 @@ public class PurchaseManager implements PurchasesUpdatedListener {
             }
 
             if (TextUtils.equals(proSkuId, purchase.getSku())) {
-                payProComplete();
+                payProComplete(true);
                 return;
             }
         }
+
+        payProComplete(false);
     }
 }

@@ -114,6 +114,9 @@ public class DetailsFragment extends Fragment {
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());
         vipButton.setOnClickListener(vipClickListener);
 
+        PurchaseManager manager = getPurchaseManager();
+        vipButton.setVisibility(manager == null || manager.isProVersion() ? View.GONE : View.VISIBLE);
+
         downloadButton = view.findViewById(R.id.downloadButtonContainer);
         installButton = view.findViewById(R.id.installButtonContainer);
         copySeedContainer = view.findViewById(R.id.copySeedContainer);
