@@ -45,6 +45,8 @@ public class DownloadCompleteDialog extends DialogFragment {
             ReviewManager manager = ReviewManagerFactory.create(requireContext());
             Task<ReviewInfo> request = manager.requestReviewFlow();
             request.addOnCompleteListener(task -> {
+                LocalStorage.setNeverShowRateDialogAgain(requireContext());
+
                 if (task.isSuccessful()) {
                     Task<Void> flow = manager.launchReviewFlow(requireActivity(), task.getResult());
                     flow.addOnCompleteListener(task1 -> { });
