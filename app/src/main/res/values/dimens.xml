@@ -51,5 +51,7 @@
     <dimen name="popup_sort_offset_y">16dp</dimen>
     
     <dimen name="search_button_width">14dp</dimen>
+    <dimen name="ad_label_side_padding">6dp</dimen>
+    <dimen name="ad_label_top_padding">1dp</dimen>
 
 </resources>

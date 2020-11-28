@@ -329,6 +329,22 @@
 
             </com.faltenreich.skeletonlayout.SkeletonLayout>
 
+            <TextView
+                android:id="@+id/adLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ad"
+                android:textColor="#ffffff"
+                android:background="#2470d5"
+                android:paddingStart="@dimen/ad_label_side_padding"
+                android:paddingEnd="@dimen/ad_label_side_padding"
+                android:paddingBottom="@dimen/ad_label_top_padding"
+                android:paddingTop="@dimen/ad_label_top_padding"
+                android:layout_alignTop="@id/skeletonLayout"
+                android:layout_alignStart="@id/skeletonLayout"
+                android:textSize="9sp"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
     </ScrollView>

@@ -88,6 +88,7 @@ public class DetailsFragment extends Fragment {
     // Native Ad
     private TemplateView adContainer;
     private Skeleton skeleton;
+    private View adLabel;
 
     private Handler handler = new Handler();
     private Runnable handlerRunnable;
@@ -126,6 +127,7 @@ public class DetailsFragment extends Fragment {
         readMoreButton = view.findViewById(R.id.detailsReadMore);
         detailsText = view.findViewById(R.id.detailsText);
         adContainer = view.findViewById(R.id.my_template);
+        adLabel = view.findViewById(R.id.adLabel);
 
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         CircleIndicator indicator = view.findViewById(R.id.circleIndicator);
@@ -253,6 +255,7 @@ public class DetailsFragment extends Fragment {
                     }
 
                     skeleton.showOriginal();
+                    adLabel.setVisibility(View.VISIBLE);
                     adContainer.setStyles(new NativeTemplateStyle.Builder().build());
                     adContainer.setNativeAd(unifiedNativeAd);
 

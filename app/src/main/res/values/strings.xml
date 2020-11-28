@@ -47,5 +47,6 @@
     <string name="views">Views</string>
     <string name="search_hint">Type to search...</string>
     <string name="items_not_found">Items not found</string>
+    <string name="ad">AD</string>
 
 </resources>
