@@ -2,6 +2,7 @@ package com.example.aio_project;
 
 import android.app.Application;
 
+import com.example.aio_project.utils.AppOpenManager;
 import com.example.aio_project.utils.PurchaseManager;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.FirebaseApp;
@@ -16,6 +17,7 @@ import io.github.inflationx.viewpump.ViewPump;
 
 public class MainApplication extends Application {
     public PurchaseManager purchaseManager = new PurchaseManager();
+    public AppOpenManager appOpenManager = new AppOpenManager();
 
     @Override
     public void onCreate() {
@@ -26,6 +28,7 @@ public class MainApplication extends Application {
                 .build());
 
         purchaseManager.init(this);
+        appOpenManager.init(this);
 
         MobileAds.initialize(this, initializationStatus -> {});
         FirebaseApp.initializeApp(this);
