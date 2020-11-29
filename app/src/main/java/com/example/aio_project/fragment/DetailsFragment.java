@@ -40,6 +40,7 @@ import com.example.aio_project.utils.ClipboardHelper;
 import com.example.aio_project.utils.DownloadHelper;
 import com.example.aio_project.utils.LocalStorage;
 import com.example.aio_project.utils.PurchaseManager;
+import com.example.aio_project.utils.SkinInstallHelper;
 import com.example.aio_project.utils.TextUtils;
 import com.faltenreich.skeletonlayout.Skeleton;
 import com.faltenreich.skeletonlayout.SkeletonLayoutUtils;
@@ -373,6 +374,19 @@ public class DetailsFragment extends Fragment {
 
         String fileName = Uri.parse(url).getLastPathSegment();
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+        // Skins must be copied manually
+        if (entry.getLocalCategory() == Category.SKIN) {
+            boolean result = SkinInstallHelper.installSkin(file);
+            if (result) {
+                Toast.makeText(requireContext(), "Skin successfully copied to Minecraft folder", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Skin copied error", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        // Other -- install by intents
         Uri fileUri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
         Intent myIntent = new Intent(Intent.ACTION_VIEW);
         myIntent.setData(fileUri);
